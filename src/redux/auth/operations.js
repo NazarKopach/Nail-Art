@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const authInstance = axios.create({
   baseURL: "http://localhost:3000",
+  withCredentials: true,
 });
 
 export const setToken = (token) => {
@@ -18,8 +19,10 @@ export const apiRegisterUser = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const { data } = await authInstance.post("/auth/register", userData);
-      setToken(data.token);
-      return data;
+      const token = data.data.accessToken;
+
+      setToken(token);
+      return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
@@ -31,9 +34,11 @@ export const apiLoginUser = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const { data } = await authInstance.post("/auth/login", userData);
-      setToken(data.token);
+      const token = data.data.accessToken;
 
-      return data;
+      setToken(token);
+
+      return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
@@ -43,18 +48,12 @@ export const apiLoginUser = createAsyncThunk(
 export const apiGetCurrentUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkApi) => {
-    const state = thunkApi.getState();
-    const token = state.auth.token;
-
-    if (!token) {
-      return thunkApi.rejectWithValue("No token provided to refresh user data");
-    }
-
     try {
-      setToken(token);
-      const { data } = await authInstance.get("/auth/refresh");
+      const { data } = await authInstance.post("/auth/refresh");
 
-      return data;
+      setToken(data.data.accessToken);
+
+      return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }

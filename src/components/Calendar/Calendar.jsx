@@ -6,14 +6,14 @@ import { allBookings } from "../../redux/booking/selectors";
 const Calendar = () => {
   const booking = useSelector(allBookings);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/bookings")
-      .then((res) => res.json())
-      .then((data) => {
-        const userBookings = data.bookings;
-        setBooking(userBookings);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/bookings")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       const userBookings = data.bookings;
+  //       setBooking(userBookings);
+  //     });
+  // }, []);
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
