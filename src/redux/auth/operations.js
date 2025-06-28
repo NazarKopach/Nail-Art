@@ -74,5 +74,3 @@ export const apiLogoutUser = createAsyncThunk(
     }
   }
 );
-
-export const refresh = () => {};
