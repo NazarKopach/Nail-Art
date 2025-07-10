@@ -7,11 +7,13 @@ export const authInstance = axios.create({
 });
 
 export const setToken = (token) => {
+  localStorage.setItem("accessToken", token);
   authInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 export const clearToken = () => {
-  authInstance.defaults.headers.common.Authorization = "";
+  localStorage.removeItem("accessToken");
+  delete authInstance.defaults.headers.common.Authorization;
 };
 
 export const apiRegisterUser = createAsyncThunk(
