@@ -76,3 +76,5 @@ export const apiLogoutUser = createAsyncThunk(
     }
   }
 );
+
+export const report = () => {};
