@@ -1,24 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBooks } from "./operations";
+import { addBookings, fetchBookings } from "./operations";
 
 const bookingsSlice = createSlice({
   name: "bookings",
   initialState: {
-    items: [],
+    bookings: [],
     isLoading: false,
     error: null,
   },
   extraReducers: (builder) =>
     builder
-      .addCase(fetchBooks.pending, (state) => {
+      .addCase(fetchBookings.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchBooks.fulfilled, (state, action) => {
+      .addCase(fetchBookings.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items = action.payload;
+        state.bookings = action.payload;
+        console.log(action.payload);
       })
-      .addCase(fetchBooks.rejected, (state, action) => {
+      .addCase(fetchBookings.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(addBookings.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addBookings.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.bookings.push(action.payload);
+      })
+      .addCase(addBookings.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       }),

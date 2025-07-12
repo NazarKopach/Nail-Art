@@ -1,3 +1,3 @@
-export const allBookings = (state) => state.bookings.booking;
+export const allBookings = (state) => state.bookings.bookings;
 export const isBookingsLoading = (state) => state.bookings.isLoading;
 export const bookingsError = (state) => state.bookings.error;

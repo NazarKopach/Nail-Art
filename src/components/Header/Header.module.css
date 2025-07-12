@@ -1,0 +1,13 @@
+.header_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(213, 30, 167);
+  border-radius: 10px;
+  height: 80px;
+}
+
+.header_img {
+  border-radius: 5px;
+  margin: 5px;
+}

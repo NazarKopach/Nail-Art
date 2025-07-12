@@ -1,95 +1,3 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Calendar.module.css";
-import { useSelector } from "react-redux";
-import { allBookings } from "../../redux/booking/selectors";
-
-const Calendar = () => {
-  const booking = useSelector(allBookings);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/bookings")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const userBookings = data.bookings;
-  //       setBooking(userBookings);
-  //     });
-  // }, []);
-
-  const [currentDate, setCurrentDate] = useState(new Date());
-
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDayIndexRaw = new Date(year, month, 1).getDay();
-  const firstDayIndex = firstDayIndexRaw === 0 ? 6 : firstDayIndexRaw - 1;
-
-  const prevMonth = () => {
-    setCurrentDate(new Date(year, month - 1, 1));
-  };
-
-  const nextMonth = () => {
-    setCurrentDate(new Date(year, month + 1, 1));
-  };
-
-  const handleDateClick = (day) => {
-    alert(`Вибрано дату: ${day}.${month + 1}.${year}`);
-  };
-
-  const days = [];
-  for (let i = 0; i < firstDayIndex; i++) {
-    days.push(
-      <div key={`empty-${i}`} className={`${styles.day} ${styles.empty}`} />
-    );
-  }
-
-  for (let i = 1; i <= daysInMonth; i++) {
-    days.push(
-      <div
-        key={i}
-        onClick={() => handleDateClick(i)}
-        className={`${styles.day} ${styles.active}`}
-      >
-        {i}
-        {/* <ul className={styles.calendar_list}>
-          {booking.map((booking) => (
-            <li key={booking._id} className={styles.calendar_item}>
-              <p>
-                🕐 {booking.clientName} {booking.clientEmail}
-              </p>
-              <p>
-                {booking.date} {booking.time}
-              </p>
-            </li>
-          ))}
-        </ul> */}
-      </div>
-    );
-  }
-
-  return (
-    <div className={styles.calendar}>
-      <div className={styles.header}>
-        <button onClick={prevMonth}>&larr;</button>
-        <h2>
-          {currentDate.toLocaleString("uk-UA", { month: "long" })} {year}
-        </h2>
-        <button onClick={nextMonth}>&rarr;</button>
-      </div>
-      <div className={styles.grid}>
-        {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"].map((d) => (
-          <div key={d} className={styles.dayName}>
-            {d}
-          </div>
-        ))}
-        {days}
-      </div>
-    </div>
-  );
-};
-
-export default Calendar;
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // import { useState, useEffect } from "react";
@@ -198,71 +106,41 @@ export default Calendar;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-// import React, { useEffect, useState } from "react";
-// import FullCalendar from "@fullcalendar/react";
-// import dayGridPlugin from "@fullcalendar/daygrid";
-// import timeGridPlugin from "@fullcalendar/timegrid";
-// import interactionPlugin from "@fullcalendar/interaction";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import { useDispatch } from "react-redux";
+import { addBookings } from "../../redux/booking/operations";
 
-// export default function BookingCalendar() {
-//   const [events, setEvents] = useState([]);
-//   const [bookings, setBookings] = useState([]);
+export default function BookingCalendar() {
+  const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     fetch("http://localhost:3000/bookings")
-//       .then((res) => res.json())
-//       .then((data) => {
-//         if (Array.isArray(data)) {
-//           const formatted = data.map((b) => ({
-//             title: b.clientName,
-//             start: `${b.date}T${b.time}`,
-//           }));
-//           setEvents(formatted);
-//           setBookings(formatted);
-//         }
-//       });
-//   }, []);
+  const handleDateClick = (info) => {
+    const clientName = prompt("Ім'я клієнта:");
+    const time = prompt("О котрій годині? (формат HH:MM, напр. 14:30)");
 
-//   const handleDateClick = async (info) => {
-//     const clientName = prompt("Ім'я клієнта:");
-//     const time = prompt("О котрій годині? (формат HH:MM, напр. 14:30)");
+    if (!clientName || !time) return;
 
-//     if (!clientName || !time) return;
+    const date = info.dateStr;
+    const newBooking = { clientName, date, time };
 
-//     const date = info.dateStr;
-//     const newBooking = { clientName, date, time };
+    dispatch(addBookings(newBooking));
+  };
 
-//     const res = await fetch("http://localhost:3000/bookings", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(newBooking),
-//     });
-
-//     if (res.ok) {
-//       setEvents((prev) => [
-//         ...prev,
-//         {
-//           title: clientName,
-//           start: `${date}T${time}`,
-//         },
-//       ]);
-//     }
-//   };
-
-//   return (
-//     <FullCalendar
-//       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-//       initialView="dayGridMonth"
-//       dateClick={handleDateClick}
-//       events={bookings}
-//       headerToolbar={{
-//         left: "prev,next today",
-//         center: "title",
-//         right: "dayGridMonth,timeGridWeek,timeGridDay",
-//       }}
-//       eventClick={(info) => {
-//         alert(`Резервація: ${info.event.title}\nЧас: ${info.event.start}`);
-//       }}
-//     />
-//   );
-// }
+  return (
+    <FullCalendar
+      plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+      initialView="dayGridMonth"
+      dateClick={handleDateClick}
+      headerToolbar={{
+        left: "prev,next today",
+        center: "title",
+        right: "dayGridMonth,timeGridWeek,timeGridDay",
+      }}
+      eventClick={(info) => {
+        alert(`Резервація: ${info.event.title}\nЧас: ${info.event.start}`);
+      }}
+    />
+  );
+}

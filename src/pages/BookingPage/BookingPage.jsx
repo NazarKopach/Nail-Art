@@ -1,9 +1,11 @@
+import Calendar from "react-calendar";
 import styles from "./BookingPage.module.css";
+import BookingForm from "../../components/Calendar/Calendar";
 
 const BookingPage = () => {
   return (
     <div>
-      <h1>Bookingage</h1>
+      <BookingForm />
     </div>
   );
 };

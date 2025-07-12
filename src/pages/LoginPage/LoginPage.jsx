@@ -5,6 +5,7 @@ import { LoginUserSchema } from "../../utils/schemas";
 import { apiLoginUser } from "../../redux/auth/operations";
 import { selectUserIsLoading } from "../../redux/auth/selectors";
 import { toast } from "react-toastify";
+import { NavLink } from "react-router-dom";
 
 const INITIAL_VALUES = {
   email: "",
@@ -62,9 +63,12 @@ const LoginPage = () => {
               component="span"
             />
           </label>
-          <button className={styles.button} type="submit">
-            {isLoading ? "Signing in..." : "Sign In"}
-          </button>
+          <div className={styles.login_form_link}>
+            <button className={styles.button} type="submit">
+              {isLoading ? "Signing in..." : "Sign In"}
+            </button>
+            <NavLink to="/register">Don’t have an account?</NavLink>
+          </div>
         </Form>
       </Formik>
     </div>

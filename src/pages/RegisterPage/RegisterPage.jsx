@@ -4,6 +4,7 @@ import { RegisterUserSchema } from "../../utils/schemas";
 import { useDispatch, useSelector } from "react-redux";
 import { apiRegisterUser } from "../../redux/auth/operations";
 import { toast } from "react-toastify";
+import { NavLink } from "react-router-dom";
 
 const INITIAL_VALUES = {
   name: "",
@@ -75,9 +76,12 @@ const RegisterPage = () => {
               component="span"
             />
           </label>
-          <button className={styles.button} type="submit">
-            {isLoading ? "Singing Up..." : "Sign Up"}
-          </button>
+          <div className={styles.register_form_link}>
+            <button className={styles.button} type="submit">
+              {isLoading ? "Singing Up..." : "Sign Up"}
+            </button>
+            <NavLink to="/login">Already have an account?</NavLink>
+          </div>
         </Form>
       </Formik>
     </div>
