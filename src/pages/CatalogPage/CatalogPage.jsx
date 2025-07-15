@@ -1,14 +1,10 @@
-import { useSelector } from "react-redux";
+import CatalogItem from "../../components/CatalogItem/CatalogItem";
 import styles from "./CataloPage.module.css";
-import { allBookings } from "../../redux/booking/selectors";
 
 const CatalogPage = () => {
-  const bookings = useSelector(allBookings);
-  console.log(bookings);
-
   return (
     <div>
-      <h1>Catalog Page</h1>
+      <CatalogItem />
     </div>
   );
 };

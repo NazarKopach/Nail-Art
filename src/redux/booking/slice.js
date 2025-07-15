@@ -17,7 +17,6 @@ const bookingsSlice = createSlice({
       .addCase(fetchBookings.fulfilled, (state, action) => {
         state.isLoading = false;
         state.bookings = action.payload;
-        console.log(action.payload);
       })
       .addCase(fetchBookings.rejected, (state, action) => {
         state.isLoading = false;
@@ -29,7 +28,11 @@ const bookingsSlice = createSlice({
       })
       .addCase(addBookings.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.bookings.push(action.payload);
+        if (Array.isArray(state.bookings)) {
+          state.bookings.push(action.payload);
+        } else {
+          state.bookings = [action.payload];
+        }
       })
       .addCase(addBookings.rejected, (state, action) => {
         state.isLoading = false;

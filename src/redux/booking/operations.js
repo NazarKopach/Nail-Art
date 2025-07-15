@@ -19,7 +19,7 @@ export const fetchBookings = createAsyncThunk(
     try {
       const response = await authInstance.get("/bookings");
 
-      return response;
+      return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
