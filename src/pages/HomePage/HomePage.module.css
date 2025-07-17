@@ -1,0 +1,30 @@
+.home_page_button {
+  display: block;
+  border-radius: 12px;
+  width: 276px;
+  height: 44px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 125%;
+  background-color: #e019cf;
+  border: none;
+  margin: 500px auto;
+  white-space: nowrap;
+}
+
+.home_page_button_link {
+  padding: 12px 84px;
+}
+
+.home_page_button:hover {
+  background-color: #8b1068;
+}
+
+.homePageContainer {
+  background-image: url(../../components/img/Hero_img.png);
+  background-size: cover;
+  background-position: center;
+  max-width: 1440px;
+  min-height: 700px;
+}

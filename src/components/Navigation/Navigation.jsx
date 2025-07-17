@@ -9,11 +9,14 @@ const buildCssClasses = ({ isActive }) =>
 const Navigation = () => {
   return (
     <nav className={styles.nav_wrapper}>
-      <NavLink to="/booking" className={buildCssClasses}>
+      <NavLink to="/home" className={buildCssClasses}>
         Home
       </NavLink>
-      <NavLink to="/catalog" className={buildCssClasses}>
+      <NavLink to="/booking" className={buildCssClasses}>
         Booking
+      </NavLink>
+      <NavLink to="/catalog" className={buildCssClasses}>
+        Catalog
       </NavLink>
     </nav>
   );

@@ -21,3 +21,19 @@ export const LoginUserSchema = Yup.object({
     .min(6, "Password length must be at least 8 characters")
     .required("Password is required"),
 });
+
+const phoneNumberRegex =
+  /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
+
+export const addBookingSchema = Yup.object({
+  clientName: Yup.string()
+    .min(3, "Name must be at least 3 characters")
+    .max(50, "Name must less 50 characters")
+    .required("Name is required"),
+  phoneNumber: Yup.string()
+    .required("Number is required")
+    .matches(phoneNumberRegex, "Invalid phone number"),
+  serviceType: Yup.string().required(),
+  time: Yup.string().required(),
+  date: Yup.string().required(),
+});

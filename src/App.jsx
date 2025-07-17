@@ -8,6 +8,7 @@ import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { apiGetCurrentUser } from "./redux/auth/operations";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserIsRefreshing } from "./redux/auth/selectors";
+import HomePage from "./pages/HomePage/HomePage";
 
 const MainLayout = lazy(() => import("./MainLayout/MainLayout"));
 const BookingPage = lazy(() => import("./pages/BookingPage/BookingPage"));
@@ -44,6 +45,7 @@ function App() {
           element={<RestrictedRoute component={<RegisterPage />} />}
         />
         <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
+          <Route path="/home" element={<HomePage />} />
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="*" element={<NotFoundPage />} />

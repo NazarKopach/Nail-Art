@@ -1,6 +1,5 @@
-import Calendar from "react-calendar";
+import BookingForm from "../../components/BookingForm/BookingForm";
 import styles from "./BookingPage.module.css";
-import BookingForm from "../../components/Calendar/Calendar";
 
 const BookingPage = () => {
   return (

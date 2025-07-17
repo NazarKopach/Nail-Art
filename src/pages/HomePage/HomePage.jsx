@@ -1,11 +1,15 @@
 import styles from "./HomePage.module.css";
-
-import Calendar from "../../components/Calendar/Calendar";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div>
-      <h1>Home Page</h1>
+    <div className={styles.homePageContainer}>
+      <h1>NailArt</h1>
+      <button type="button" className={styles.home_page_button}>
+        <Link className={styles.home_page_button_link} to={"/booking"}>
+          Booking
+        </Link>
+      </button>
     </div>
   );
 };

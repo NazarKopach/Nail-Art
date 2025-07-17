@@ -18,8 +18,19 @@ export const fetchBookings = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const response = await authInstance.get("/bookings");
-
       return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteContact = createAsyncThunk(
+  "bookings/deleteBookings",
+  async (contactId, thunkApi) => {
+    try {
+      await authInstance.delete(`/bookings/${contactId}`);
+      return contactId;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }

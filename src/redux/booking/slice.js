@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addBookings, fetchBookings } from "./operations";
+import { addBookings, deleteContact, fetchBookings } from "./operations";
 
 const bookingsSlice = createSlice({
   name: "bookings",
@@ -16,7 +16,7 @@ const bookingsSlice = createSlice({
       })
       .addCase(fetchBookings.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.bookings = action.payload;
+        state.bookings = action.payload.bookings;
       })
       .addCase(fetchBookings.rejected, (state, action) => {
         state.isLoading = false;
@@ -28,15 +28,16 @@ const bookingsSlice = createSlice({
       })
       .addCase(addBookings.fulfilled, (state, action) => {
         state.isLoading = false;
-        if (Array.isArray(state.bookings)) {
-          state.bookings.push(action.payload);
-        } else {
-          state.bookings = [action.payload];
-        }
+        state.bookings.push(action.payload);
       })
       .addCase(addBookings.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.bookings = state.bookings.filter(
+          (booking) => booking.id !== action.payload
+        );
       }),
 });
 
