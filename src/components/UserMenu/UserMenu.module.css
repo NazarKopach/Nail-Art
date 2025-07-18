@@ -1,3 +1,22 @@
 .user_menu_btn {
-  margin: 5px;
+  display: none;
+}
+
+.mobile_icon {
+  display: flex;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .mobile_icon {
+    display: none;
+  }
+
+  .user_menu_btn {
+    margin: 5px;
+    display: flex;
+  }
+}
+
+@media (min-width: 1440px) {
 }

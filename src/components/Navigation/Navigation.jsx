@@ -3,19 +3,19 @@ import { NavLink } from "react-router-dom";
 import styles from "./Navigation.module.css";
 import clsx from "clsx";
 
-const buildCssClasses = ({ isActive }) =>
-  clsx(styles.link, isActive && styles.active);
+const Navigation = ({ closeModal, wrapperClass, linkClass }) => {
+  const buildCssClasses = ({ isActive }) =>
+    clsx(styles.link, linkClass, isActive && styles.active);
 
-const Navigation = () => {
   return (
-    <nav className={styles.nav_wrapper}>
-      <NavLink to="/home" className={buildCssClasses}>
+    <nav className={clsx(styles.nav_wrapper, wrapperClass)}>
+      <NavLink to="/home" className={buildCssClasses} onClick={closeModal}>
         Home
       </NavLink>
-      <NavLink to="/booking" className={buildCssClasses}>
+      <NavLink to="/booking" className={buildCssClasses} onClick={closeModal}>
         Booking
       </NavLink>
-      <NavLink to="/catalog" className={buildCssClasses}>
+      <NavLink to="/catalog" className={buildCssClasses} onClick={closeModal}>
         Catalog
       </NavLink>
     </nav>

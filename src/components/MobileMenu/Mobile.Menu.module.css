@@ -1,0 +1,23 @@
+.button_user_mobile {
+  display: block;
+  margin-top: 200px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  border-radius: 30px;
+  width: 114px;
+  height: 42px;
+}
+
+.mobile_modal_icon_div {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.wrapper_nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-top: 100px;
+}

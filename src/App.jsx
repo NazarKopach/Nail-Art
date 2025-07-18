@@ -9,6 +9,7 @@ import { apiGetCurrentUser } from "./redux/auth/operations";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserIsRefreshing } from "./redux/auth/selectors";
 import HomePage from "./pages/HomePage/HomePage";
+import SvgSprite from "./components/SvgSprite/SvgSprite";
 
 const MainLayout = lazy(() => import("./MainLayout/MainLayout"));
 const BookingPage = lazy(() => import("./pages/BookingPage/BookingPage"));
@@ -35,6 +36,7 @@ function App() {
 
   return (
     <div>
+      <SvgSprite />
       <Routes>
         <Route
           path="/login"

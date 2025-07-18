@@ -14,8 +14,8 @@ const CatalogItem = () => {
     dispatch(fetchBookings());
   }, [dispatch]);
 
-  const hadleDelet = async (id) => {
-    await dispatch(deleteContact(id));
+  const handleDelet = async (id) => {
+    await dispatch(deleteContact(id)).unwrap();
     dispatch(fetchBookings());
   };
 
@@ -30,7 +30,7 @@ const CatalogItem = () => {
               <p>Service: {booking.serviceType}</p>
               <p>Data: {booking.date}</p>
               <p>Time: {booking.time}</p>
-              <button type="button" onClick={() => hadleDelet(booking._id)}>
+              <button type="button" onClick={() => handleDelet(booking._id)}>
                 Delete
               </button>
             </li>

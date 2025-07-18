@@ -1,9 +1,12 @@
+import styles from "./BookingForm.module.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { addBookingSchema } from "../../utils/schemas";
-import styles from "./BookingForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addBookings } from "../../redux/booking/operations";
 import { isBookingsLoading } from "../../redux/booking/selectors";
+import { toast } from "react-toastify";
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 const initialValues = {
   clientName: "",
@@ -17,10 +20,14 @@ const BookingForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isBookingsLoading);
 
-  const handleSubmit = (values, actions) => {
-    dispatch(addBookings(values));
-    console.log(values);
-    actions.resetForm();
+  const handleSubmit = async (values, actions) => {
+    try {
+      await dispatch(addBookings(values)).unwrap();
+      toast.success("Successfuly add booking!");
+      actions.resetForm();
+    } catch (err) {
+      toast.error(err.message || "Something went wrong...");
+    }
   };
 
   return (
@@ -76,7 +83,17 @@ const BookingForm = () => {
           </label>
           <label className={styles.label}>
             <span>Time: </span>
-            <Field className={styles.input} name="time" type="time" />
+            <Field as="select" className={styles.input} name="time" type="time">
+              <option disabled value="">
+                Select time
+              </option>
+              <option value="9:00">9:00</option>
+              <option value="11:00">11:00</option>
+              <option value="13:00">13:00</option>
+              <option value="15:00">15:00</option>
+              <option value="17:00">17:00</option>
+              <option value="19:00">19:00</option>
+            </Field>
             <ErrorMessage
               className={styles.errorMessage}
               name="time"
