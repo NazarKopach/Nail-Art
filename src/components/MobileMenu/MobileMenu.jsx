@@ -9,8 +9,6 @@ import Navigation from "../Navigation/Navigation";
 const MobileMenu = ({ modalIsOpen, closeModal, customStyles }) => {
   const dispatch = useDispatch();
 
-  const sfdsdfs = () => {};
-
   const onLogout = () => {
     dispatch(apiLogoutUser());
     closeModal();
