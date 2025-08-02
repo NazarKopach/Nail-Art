@@ -9,6 +9,8 @@ import styles from "./UserMenu.module.css";
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(20, 20, 20, 0.6)",
+    overflowX: "hidden",
+    zIndex: 1000,
   },
   content: {
     top: "0",
@@ -16,7 +18,6 @@ const customStyles = {
     right: "0",
     bottom: "0",
     width: "50vw",
-    height: "100vh",
     padding: "34px",
     border: "none",
     borderRadius: "0",
@@ -31,7 +32,6 @@ const UserMenu = () => {
 
   function openModal() {
     setIsOpen(true);
-    console.log("hello");
   }
 
   function closeModal() {

@@ -3,7 +3,7 @@ import styles from "./CataloPage.module.css";
 
 const CatalogPage = () => {
   return (
-    <div>
+    <div className={styles.catalog_page_div}>
       <CatalogItem />
     </div>
   );

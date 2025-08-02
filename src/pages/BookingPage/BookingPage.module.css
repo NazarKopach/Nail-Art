@@ -1,0 +1,10 @@
+.booking_page_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* background-image: url(/img/Hero_img.png);
+  background-size: cover;
+  background-position: center;
+  max-width: 1440px;
+  height: 700px; */
+}

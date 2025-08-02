@@ -80,7 +80,9 @@ const RegisterPage = () => {
             <button className={styles.button} type="submit">
               {isLoading ? "Singing Up..." : "Sign Up"}
             </button>
-            <NavLink to="/login">Already have an account?</NavLink>
+            <NavLink className={styles.register_page_nav} to="/login">
+              Already have an account?
+            </NavLink>
           </div>
         </Form>
       </Formik>

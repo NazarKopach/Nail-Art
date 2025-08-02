@@ -3,9 +3,9 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { addBookingSchema } from "../../utils/schemas";
 import { useDispatch, useSelector } from "react-redux";
 import { addBookings } from "../../redux/booking/operations";
-import { isBookingsLoading } from "../../redux/booking/selectors";
+import { allBookings, isBookingsLoading } from "../../redux/booking/selectors";
 import { toast } from "react-toastify";
-import flatpickr from "flatpickr";
+import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 const initialValues = {
@@ -19,6 +19,7 @@ const initialValues = {
 const BookingForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isBookingsLoading);
+  const dataBookings = useSelector(allBookings);
 
   const handleSubmit = async (values, actions) => {
     try {
@@ -58,7 +59,7 @@ const BookingForm = () => {
               className={styles.input}
               name="phoneNumber"
               type="tel"
-              placeholder="+380*******"
+              placeholder="+48*******"
             />
             <ErrorMessage
               className={styles.errorMessage}
@@ -101,8 +102,33 @@ const BookingForm = () => {
             />
           </label>
           <label className={styles.label}>
-            <span>date: </span>
-            <Field className={styles.input} name="date" type="date" />
+            <span>Date: </span>
+            <Field name="date">
+              {({ field, form }) => {
+                const disabledDates = Array.isArray(dataBookings)
+                  ? dataBookings
+                      .map((booking) => new Date(booking.date))
+                      .filter((date) => !isNaN(date))
+                  : [];
+
+                return (
+                  <Flatpickr
+                    className={styles.input}
+                    placeholder="Booking date"
+                    options={{
+                      enableTime: false,
+                      dateFormat: "Y-m-d",
+                      minDate: "today",
+                      disable: disabledDates,
+                    }}
+                    value={field.value}
+                    onChange={(date) => {
+                      form.setFieldValue("date", date[0]);
+                    }}
+                  />
+                );
+              }}
+            </Field>
             <ErrorMessage
               className={styles.errorMessage}
               name="date"

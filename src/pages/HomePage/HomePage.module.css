@@ -1,4 +1,9 @@
 .home_page_button {
+  /* position: relative;
+  top: 500px; */
+  margin-top: 100px;
+  margin-right: auto;
+  margin-left: auto;
   display: block;
   border-radius: 12px;
   width: 276px;
@@ -7,24 +12,30 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 125%;
-  background-color: #e019cf;
+  background-color: rgb(213, 30, 167);
   border: none;
-  margin: 500px auto;
   white-space: nowrap;
 }
 
 .home_page_button_link {
   padding: 12px 84px;
+  color: rgb(0, 0, 0);
 }
 
 .home_page_button:hover {
-  background-color: #8b1068;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(213, 30, 167);
 }
 
 .homePageContainer {
-  background-image: url(../../components/img/Hero_img.png);
+  background: #fb3f68;
+  background: radial-gradient(
+    circle,
+    rgba(251, 63, 104, 1) 0%,
+    rgba(209, 165, 165, 1) 93%
+  );
   background-size: cover;
   background-position: center;
   max-width: 1440px;
-  min-height: 700px;
+  padding: 20px;
 }

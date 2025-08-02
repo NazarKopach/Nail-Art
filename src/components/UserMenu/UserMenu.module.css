@@ -1,5 +1,13 @@
 .user_menu_btn {
   display: none;
+  background-color: rgb(255, 255, 255);
+  color: rgb(213, 30, 167);
+}
+
+.user_menu_btn:hover {
+  background-color: rgb(213, 30, 167);
+  border: 1px solid white;
+  color: black;
 }
 
 .mobile_icon {

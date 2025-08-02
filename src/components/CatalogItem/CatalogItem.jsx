@@ -8,7 +8,6 @@ const CatalogItem = () => {
   const dispatch = useDispatch();
 
   const bookings = useSelector(allBookings);
-  console.log(bookings);
 
   useEffect(() => {
     dispatch(fetchBookings());
@@ -20,17 +19,46 @@ const CatalogItem = () => {
   };
 
   return (
-    <div>
+    <div className={styles.catalog_item_div}>
       <ul>
         {Array.isArray(bookings) && bookings.length > 0 ? (
           bookings.map((booking) => (
             <li key={booking._id} className={styles.catalog_item}>
-              <p>Name: {booking.clientName}</p>
-              <p>Phone: {booking.phoneNumber}</p>
-              <p>Service: {booking.serviceType}</p>
-              <p>Data: {booking.date}</p>
-              <p>Time: {booking.time}</p>
-              <button type="button" onClick={() => handleDelet(booking._id)}>
+              <p className={styles.catalog_item_title}>
+                Name:{" "}
+                <span className={styles.catalog_item_title_span}>
+                  {booking.clientName}
+                </span>
+              </p>
+              <p className={styles.catalog_item_title}>
+                Phone:{" "}
+                <span className={styles.catalog_item_title_span}>
+                  {booking.phoneNumber}
+                </span>
+              </p>
+              <p className={styles.catalog_item_title}>
+                Service:{" "}
+                <span className={styles.catalog_item_title_span}>
+                  {booking.serviceType}
+                </span>
+              </p>
+              <p className={styles.catalog_item_title}>
+                Data:{" "}
+                <span className={styles.catalog_item_title_span}>
+                  {booking.date}
+                </span>
+              </p>
+              <p className={styles.catalog_item_title}>
+                Time:{" "}
+                <span className={styles.catalog_item_title_span}>
+                  {booking.time}
+                </span>
+              </p>
+              <button
+                className={styles.catalog_item_btn}
+                type="button"
+                onClick={() => handleDelet(booking._id)}
+              >
                 Delete
               </button>
             </li>

@@ -1,6 +1,28 @@
 .catalog_item {
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 3px solid rgb(213, 30, 167);
+  border-radius: 15px;
+  padding: 20px;
   margin: 10px;
+}
+
+.catalog_item_btn {
+  background-color: rgb(213, 30, 167);
+  color: black;
+}
+
+.catalog_item_btn:hover {
+  background-color: white;
+  border: 1px solid rgb(213, 30, 167);
+  color: rgb(213, 30, 167);
+}
+
+.catalog_item_title {
+  font-size: 20px;
+}
+
+.catalog_item_title_span {
+  font-size: 16px;
 }

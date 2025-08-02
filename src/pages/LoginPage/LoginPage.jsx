@@ -67,7 +67,9 @@ const LoginPage = () => {
             <button className={styles.button} type="submit">
               {isLoading ? "Signing in..." : "Sign In"}
             </button>
-            <NavLink to="/register">Don’t have an account?</NavLink>
+            <NavLink className={styles.login_page_nav} to="/register">
+              Don’t have an account?
+            </NavLink>
           </div>
         </Form>
       </Formik>
