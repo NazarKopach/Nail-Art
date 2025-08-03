@@ -1,6 +1,4 @@
 .home_page_button {
-  /* position: relative;
-  top: 500px; */
   margin-top: 100px;
   margin-right: auto;
   margin-left: auto;
@@ -28,6 +26,9 @@
 }
 
 .homePageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: #fb3f68;
   background: radial-gradient(
     circle,
@@ -37,5 +38,21 @@
   background-size: cover;
   background-position: center;
   max-width: 1440px;
-  padding: 20px;
+  min-height: 100vh;
+  padding-top: 10px;
+}
+
+/* ////// TABLET //// */
+
+@media (min-width: 768px) {
+  .home_page_button {
+    width: 300px;
+    height: 80px;
+    font-size: 24px;
+  }
+}
+
+/* ////// PC //// */
+
+@media (min-width: 1440px) {
 }
