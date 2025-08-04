@@ -34,6 +34,7 @@ export const addBookingSchema = Yup.object({
     .required("Number is required")
     .matches(phoneNumberRegex, "Invalid phone number"),
   serviceType: Yup.string().required(),
+  dodatek: Yup.string(),
   time: Yup.string().required(),
   date: Yup.string().required(),
 });

@@ -12,6 +12,7 @@ const initialValues = {
   clientName: "",
   phoneNumber: "",
   serviceType: "",
+  dodatek: "",
   time: "",
   date: "",
 };
@@ -20,6 +21,21 @@ const BookingForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isBookingsLoading);
   const dataBookings = useSelector(allBookings);
+  const time = ["9:00", "11:00", "13:00", "15;00", "17:00"];
+  const dodatek = [
+    "Zdobienia",
+    "Przedluzenie 1 paznokcia",
+    "French",
+    "Usuwanie materialu",
+  ];
+  const services = [
+    "Manicure hybrydowy",
+    "Zel(krotki)",
+    "Zel(srednia dlugosc od 1)",
+    "Zel(dlugie od 2)",
+    "Przedluzanie (do 3)",
+    "Przedluzanie (od 3)",
+  ];
 
   const handleSubmit = async (values, actions) => {
     try {
@@ -73,8 +89,11 @@ const BookingForm = () => {
               <option disabled value="">
                 Select service
               </option>
-              <option value="nail">Nail</option>
-              <option value="manicure">Manicure</option>
+              {services.map((service) => (
+                <option key={service} value={service}>
+                  {service}
+                </option>
+              ))}
             </Field>
             <ErrorMessage
               className={styles.errorMessage}
@@ -83,17 +102,29 @@ const BookingForm = () => {
             />
           </label>
           <label className={styles.label}>
+            <span>Dodatkowo:</span>
+            <Field as="select" className={styles.input} name="dodatek">
+              <option disabled value="">
+                Wybierz dodatek
+              </option>
+              {dodatek.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </Field>
+          </label>
+          <label className={styles.label}>
             <span>Time: </span>
             <Field as="select" className={styles.input} name="time" type="time">
               <option disabled value="">
                 Select time
               </option>
-              <option value="9:00">9:00</option>
-              <option value="11:00">11:00</option>
-              <option value="13:00">13:00</option>
-              <option value="15:00">15:00</option>
-              <option value="17:00">17:00</option>
-              <option value="19:00">19:00</option>
+              {time.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
             </Field>
             <ErrorMessage
               className={styles.errorMessage}
@@ -110,7 +141,6 @@ const BookingForm = () => {
                       .map((booking) => new Date(booking.date))
                       .filter((date) => !isNaN(date))
                   : [];
-
                 return (
                   <Flatpickr
                     className={styles.input}

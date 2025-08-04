@@ -42,10 +42,21 @@ const CatalogItem = () => {
                   {booking.serviceType}
                 </span>
               </p>
+              {booking.dodatek !== "" && (
+                <p className={styles.catalog_item_title}>
+                  Dodatek:{" "}
+                  <span className={styles.catalog_item_title_span}>
+                    {booking.dodatek}
+                  </span>
+                </p>
+              )}
               <p className={styles.catalog_item_title}>
                 Data:{" "}
                 <span className={styles.catalog_item_title_span}>
-                  {booking.date}
+                  {booking.date
+                    ? new Date(booking.date).toLocaleDateString()
+                    : "Brak daty"}
+                  ;
                 </span>
               </p>
               <p className={styles.catalog_item_title}>
