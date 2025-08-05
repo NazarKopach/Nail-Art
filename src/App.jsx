@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { Route, Routes } from "react-router-dom";
-import { lazy, useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { RestrictedRoute } from "./components/RestrictedRoute/RestrictedRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
@@ -37,22 +37,24 @@ function App() {
   return (
     <div>
       <SvgSprite />
-      <Routes>
-        <Route
-          path="/login"
-          element={<RestrictedRoute component={<LoginPage />} />}
-        />
-        <Route
-          path="/register"
-          element={<RestrictedRoute component={<RegisterPage />} />}
-        />
-        <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/booking" element={<BookingPage />} />
-          <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<p>Loading....</p>}>
+        <Routes>
+          <Route
+            path="/login"
+            element={<RestrictedRoute component={<LoginPage />} />}
+          />
+          <Route
+            path="/register"
+            element={<RestrictedRoute component={<RegisterPage />} />}
+          />
+          <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/booking" element={<BookingPage />} />
+            <Route path="/catalog" element={<CatalogPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </Suspense>
       <ToastContainer position="top-center" />
     </div>
   );

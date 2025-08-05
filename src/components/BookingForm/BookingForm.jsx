@@ -7,6 +7,7 @@ import { allBookings, isBookingsLoading } from "../../redux/booking/selectors";
 import { toast } from "react-toastify";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import { useState } from "react";
 
 const initialValues = {
   clientName: "",
@@ -21,7 +22,18 @@ const BookingForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isBookingsLoading);
   const dataBookings = useSelector(allBookings);
-  const time = ["9:00", "11:00", "13:00", "15;00", "17:00"];
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const reservation = dataBookings.map((item) => {
+    const reservedTime = item.time;
+    const reservedDate = item.date.split("T")[0];
+    return {
+      date: reservedDate,
+      time: reservedTime,
+    };
+  });
+
+  const time = ["9:00", "11:00", "13:00", "15:00", "17:00"];
   const dodatek = [
     "Zdobienia",
     "Przedluzenie 1 paznokcia",
@@ -37,6 +49,14 @@ const BookingForm = () => {
     "Przedluzanie (od 3)",
   ];
 
+  const availableTimes = time.filter((t) => {
+    if (!selectedDate) return true;
+    const formattedDate = selectedDate.toISOString().split("T")[0];
+    return !reservation.some(
+      (res) => res.date === formattedDate && res.time === t
+    );
+  });
+
   const handleSubmit = async (values, actions) => {
     try {
       await dispatch(addBookings(values)).unwrap();
@@ -46,6 +66,10 @@ const BookingForm = () => {
       toast.error(err.message || "Something went wrong...");
     }
   };
+
+  if (isLoading && dataBookings.length === 0) {
+    return <h1>Завантаження бронювань...</h1>;
+  }
 
   return (
     <div className={styles.contact_form_div}>
@@ -115,32 +139,9 @@ const BookingForm = () => {
             </Field>
           </label>
           <label className={styles.label}>
-            <span>Time: </span>
-            <Field as="select" className={styles.input} name="time" type="time">
-              <option disabled value="">
-                Select time
-              </option>
-              {time.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </Field>
-            <ErrorMessage
-              className={styles.errorMessage}
-              name="time"
-              component="span"
-            />
-          </label>
-          <label className={styles.label}>
             <span>Date: </span>
             <Field name="date">
-              {({ field, form }) => {
-                const disabledDates = Array.isArray(dataBookings)
-                  ? dataBookings
-                      .map((booking) => new Date(booking.date))
-                      .filter((date) => !isNaN(date))
-                  : [];
+              {({ form }) => {
                 return (
                   <Flatpickr
                     className={styles.input}
@@ -149,11 +150,10 @@ const BookingForm = () => {
                       enableTime: false,
                       dateFormat: "Y-m-d",
                       minDate: "today",
-                      disable: disabledDates,
                     }}
-                    value={field.value}
                     onChange={(date) => {
                       form.setFieldValue("date", date[0]);
+                      setSelectedDate(date[0]);
                     }}
                   />
                 );
@@ -165,6 +165,33 @@ const BookingForm = () => {
               component="span"
             />
           </label>
+          {availableTimes.length > 0 ? (
+            <label className={styles.label}>
+              <span>Time: </span>
+              <Field
+                as="select"
+                className={styles.input}
+                name="time"
+                type="time"
+              >
+                <option disabled value="">
+                  Select time
+                </option>
+                {availableTimes.map((time) => (
+                  <option key={time} value={time}>
+                    {time}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage
+                className={styles.errorMessage}
+                name="time"
+                component="span"
+              />
+            </label>
+          ) : (
+            <p className={styles.loading}>Завантаження часу...</p>
+          )}
           <button className={styles.button} type="submit" disabled={isLoading}>
             {isLoading ? "Adding Booking..." : "Booking"}
           </button>
