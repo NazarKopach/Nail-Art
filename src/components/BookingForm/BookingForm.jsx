@@ -2,12 +2,12 @@ import styles from "./BookingForm.module.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { addBookingSchema } from "../../utils/schemas";
 import { useDispatch, useSelector } from "react-redux";
-import { addBookings } from "../../redux/booking/operations";
+import { addBookings, fetchBookings } from "../../redux/booking/operations";
 import { allBookings, isBookingsLoading } from "../../redux/booking/selectors";
 import { toast } from "react-toastify";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const initialValues = {
   clientName: "",
@@ -23,6 +23,10 @@ const BookingForm = () => {
   const isLoading = useSelector(isBookingsLoading);
   const dataBookings = useSelector(allBookings);
   const [selectedDate, setSelectedDate] = useState(null);
+
+  useEffect(() => {
+    dispatch(fetchBookings());
+  }, [dispatch]);
 
   const reservation = dataBookings.map((item) => {
     const reservedTime = item.time;
@@ -49,13 +53,14 @@ const BookingForm = () => {
     "Przedluzanie (od 3)",
   ];
 
-  const availableTimes = time.filter((t) => {
-    if (!selectedDate) return true;
+  const availableTimes = useMemo(() => {
+    if (!selectedDate) return time;
     const formattedDate = selectedDate.toISOString().split("T")[0];
-    return !reservation.some(
-      (res) => res.date === formattedDate && res.time === t
+    return time.filter(
+      (t) =>
+        !reservation.some((res) => res.date === formattedDate && res.time === t)
     );
-  });
+  }, [selectedDate, reservation]);
 
   const handleSubmit = async (values, actions) => {
     try {
@@ -66,10 +71,6 @@ const BookingForm = () => {
       toast.error(err.message || "Something went wrong...");
     }
   };
-
-  if (isLoading && dataBookings.length === 0) {
-    return <h1>Завантаження бронювань...</h1>;
-  }
 
   return (
     <div className={styles.contact_form_div}>
@@ -150,6 +151,7 @@ const BookingForm = () => {
                       enableTime: false,
                       dateFormat: "Y-m-d",
                       minDate: "today",
+                      disable: [],
                     }}
                     onChange={(date) => {
                       form.setFieldValue("date", date[0]);

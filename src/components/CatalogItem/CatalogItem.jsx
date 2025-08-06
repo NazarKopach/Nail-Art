@@ -6,7 +6,6 @@ import styles from "./CatalogItem.module.css";
 
 const CatalogItem = () => {
   const dispatch = useDispatch();
-
   const bookings = useSelector(allBookings);
 
   useEffect(() => {
