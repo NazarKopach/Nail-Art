@@ -8,10 +8,9 @@ const Header = () => {
     <div className={styles.header_div}>
       <div className={styles.header_wrapper}>
         <Link className={styles.header_logo} to={"/home"}>
-          <span className={styles.header_logo_span}>Nail</span>Artist
+          <img src="/logo_2.png" className={styles.header_logo} />
         </Link>
       </div>
-
       <Navigation />
       <UserMenu />
     </div>

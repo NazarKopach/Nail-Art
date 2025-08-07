@@ -37,24 +37,22 @@ function App() {
   return (
     <div>
       <SvgSprite />
-      <Suspense fallback={<p>Loading....</p>}>
-        <Routes>
-          <Route
-            path="/login"
-            element={<RestrictedRoute component={<LoginPage />} />}
-          />
-          <Route
-            path="/register"
-            element={<RestrictedRoute component={<RegisterPage />} />}
-          />
-          <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/booking" element={<BookingPage />} />
-            <Route path="/catalog" element={<CatalogPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </Suspense>
+      <Routes>
+        <Route
+          path="/login"
+          element={<RestrictedRoute component={<LoginPage />} />}
+        />
+        <Route
+          path="/register"
+          element={<RestrictedRoute component={<RegisterPage />} />}
+        />
+        <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/booking" element={<BookingPage />} />
+          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
       <ToastContainer position="top-center" />
     </div>
   );

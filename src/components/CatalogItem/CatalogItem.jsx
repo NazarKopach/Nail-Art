@@ -1,20 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
-import { allBookings } from "../../redux/booking/selectors";
+import { userBookings } from "../../redux/booking/selectors";
 import { useEffect } from "react";
-import { deleteContact, fetchBookings } from "../../redux/booking/operations";
+import {
+  deleteContact,
+  fetchUserBookings,
+} from "../../redux/booking/operations";
 import styles from "./CatalogItem.module.css";
+import { selectUser } from "../../redux/auth/selectors";
 
 const CatalogItem = () => {
   const dispatch = useDispatch();
-  const bookings = useSelector(allBookings);
+  const user = useSelector(selectUser);
+  console.log(user);
+  const bookings = useSelector(userBookings);
 
   useEffect(() => {
-    dispatch(fetchBookings());
+    dispatch(fetchUserBookings());
   }, [dispatch]);
 
   const handleDelet = async (id) => {
     await dispatch(deleteContact(id)).unwrap();
-    dispatch(fetchBookings());
+    dispatch(fetchUserBookings());
   };
 
   return (

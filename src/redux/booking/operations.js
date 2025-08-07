@@ -1,11 +1,23 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { authInstance } from "../auth/operations";
 
-export const fetchBookings = createAsyncThunk(
+export const fetchAllBookings = createAsyncThunk(
   "bookings/fetchAll",
   async (_, thunkApi) => {
     try {
-      const response = await authInstance.get("/bookings");
+      const response = await authInstance.get("/bookings/");
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchUserBookings = createAsyncThunk(
+  "bookings/fetchAllUser",
+  async (_, thunkApi) => {
+    try {
+      const response = await authInstance.get("/bookings/user-by-id");
       return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

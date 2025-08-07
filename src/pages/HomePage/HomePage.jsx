@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const HomePage = () => {
   return (
     <div>
-      {" "}
       <div className={styles.homePageContainer}>
         <Slider />
         <button type="button" className={styles.home_page_button}>
