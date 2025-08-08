@@ -1,11 +1,11 @@
 .user_menu_btn {
   display: none;
   background-color: rgb(255, 255, 255);
-  color: rgb(213, 30, 167);
+  color: #d2b48c;
 }
 
 .user_menu_btn:hover {
-  background-color: rgb(213, 30, 167);
+  background-color: #d2b48c;
   border: 1px solid white;
   color: black;
 }

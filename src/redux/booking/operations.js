@@ -25,6 +25,18 @@ export const fetchUserBookings = createAsyncThunk(
   }
 );
 
+export const fetchReservedBookings = createAsyncThunk(
+  "bookings/fetchReservation",
+  async (_, thunkApi) => {
+    try {
+      const response = await authInstance.get("/bookings/get-reservation");
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const addBookings = createAsyncThunk(
   "bookings/addBookings",
   async (bookingData, thunkApi) => {

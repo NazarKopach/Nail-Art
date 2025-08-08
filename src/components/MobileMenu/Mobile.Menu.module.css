@@ -3,10 +3,17 @@
   margin-top: 200px;
   margin-right: auto;
   margin-left: auto;
-  border: 1px solid rgba(249, 249, 249, 0.2);
+  background-color: rgb(255, 255, 255);
+  color: #d2b48c;
   border-radius: 30px;
   width: 114px;
   height: 42px;
+}
+
+.button_user_mobile:hover {
+  background-color: #d2b48c;
+  border: 1px solid white;
+  color: black;
 }
 
 .mobile_modal_icon_div {

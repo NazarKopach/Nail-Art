@@ -3,6 +3,7 @@ import {
   addBookings,
   deleteContact,
   fetchAllBookings,
+  fetchReservedBookings,
   fetchUserBookings,
 } from "./operations";
 
@@ -11,6 +12,7 @@ const bookingsSlice = createSlice({
   initialState: {
     bookingsAll: [],
     bookings: [],
+    reservation: [],
     isLoading: false,
     error: null,
   },
@@ -37,6 +39,18 @@ const bookingsSlice = createSlice({
         state.bookings = action.payload.bookings;
       })
       .addCase(fetchUserBookings.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchReservedBookings.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchReservedBookings.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.reservation = action.payload.reservation;
+      })
+      .addCase(fetchReservedBookings.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })

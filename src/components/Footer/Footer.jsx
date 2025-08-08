@@ -7,7 +7,7 @@ const Footer = () => {
     <div className={styles.footer_wrapper}>
       <div className={styles.footer_logo_wrapper}>
         <p className={styles.footer_logo}>
-          <span className={styles.footer_logo_span}>Nail</span>Artist
+          <img src="/logo_2.png" className={styles.footer_logo} />
         </p>
       </div>
       <div className={styles.footer_icon_wrapper}>

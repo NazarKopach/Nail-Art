@@ -21,7 +21,7 @@ const customStyles = {
     padding: "34px",
     border: "none",
     borderRadius: "0",
-    backgroundColor: "#e980d4",
+    backgroundColor: "#D2B48C",
   },
 };
 
