@@ -1,22 +1,33 @@
+.catalog_item_list {
+  padding: 0;
+}
+
 .catalog_item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  border: 3px solid #d2b48c;
+  border: 3px solid #808080;
   border-radius: 15px;
   padding: 20px;
   margin: 10px;
 }
 
+.catalog_item_btn_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .catalog_item_btn {
-  background-color: #d2b48c;
+  background-color: #808080;
   color: black;
 }
 
 .catalog_item_btn:hover {
   background-color: white;
-  border: 1px solid #d2b48c;
-  color: #d2b48c;
+  border: 1px solid #808080;
+  color: #808080;
 }
 
 .catalog_item_title {
@@ -24,5 +35,7 @@
 }
 
 .catalog_item_title_span {
-  font-size: 16px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 500;
+  font-size: 24px;
 }
