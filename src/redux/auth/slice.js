@@ -4,6 +4,7 @@ import {
   apiLoginUser,
   apiGetCurrentUser,
   apiLogoutUser,
+  apiGetCurrentUserInfo,
 } from "./operations";
 
 const INITIAL_STATE = {
@@ -14,6 +15,7 @@ const INITIAL_STATE = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  userInfo: [],
 };
 
 const authSlice = createSlice({
@@ -43,7 +45,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isLoggedIn = true;
         state.token = action.payload.accessToken;
-        state.user = action.payload.user;
+        state.user = action.payload;
       })
       .addCase(apiLoginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -70,6 +72,18 @@ const authSlice = createSlice({
         return INITIAL_STATE;
       })
       .addCase(apiLogoutUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(apiGetCurrentUserInfo.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiGetCurrentUserInfo.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userInfo = action.payload;
+      })
+      .addCase(apiGetCurrentUserInfo.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       }),

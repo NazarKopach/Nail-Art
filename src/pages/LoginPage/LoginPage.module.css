@@ -3,19 +3,20 @@
   flex-direction: column;
   gap: 16px;
   width: 400px;
-  border: 1px solid #d2b48c;
+  border: 1px solid #808080;
   border-radius: 5px;
   padding: 20px;
   margin: 10px;
   background: white;
   border-radius: 5px;
+  text-wrap: nowrap;
 }
 
 .input {
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
-  border: 1px solid #d2b48c;
+  border: 1px solid #808080;
 }
 
 .errorMessage {
@@ -33,7 +34,7 @@
   width: 120px;
   height: 40px;
   border-radius: 5px;
-  background-color: #d2b48c;
+  background-color: #808080;
   color: white;
   cursor: pointer;
   text-align: center;
@@ -42,8 +43,8 @@
 
 .button:hover {
   background-color: rgb(255, 255, 255);
-  color: #d2b48c;
-  border: 1px solid #d2b48c;
+  color: #808080;
+  border: 1px solid #808080;
 }
 
 .login_form_div {
@@ -59,5 +60,6 @@
 }
 
 .login_page_nav {
-  color: #d2b48c;
+  color: #808080;
+  padding: 5px;
 }

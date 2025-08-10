@@ -1,15 +1,10 @@
-/* .catalog_page_div {
-  background: #833ab4;
-  background: linear-gradient(
-    90deg,
-    rgba(131, 58, 180, 1) 0%,
-    rgba(186, 84, 84, 1) 65%,
-    rgba(252, 176, 69, 1) 100%
-  );
-
+.catalog_page_div {
+  background-image: url("/img_hero.jpg");
   background-size: cover;
   background-position: center;
+  margin-right: auto;
+  margin-left: auto;
   max-width: 1440px;
-  height: 700px;
-  padding: 10px;
-} */
+  min-height: 100vh;
+  padding: 1px;
+}

@@ -62,6 +62,19 @@ export const apiGetCurrentUser = createAsyncThunk(
   }
 );
 
+export const apiGetCurrentUserInfo = createAsyncThunk(
+  "auth/user-info",
+  async (_, thunkApi) => {
+    try {
+      const { data } = await authInstance.get("/auth/user");
+
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const apiLogoutUser = createAsyncThunk(
   "auth/logout",
   async (_, thunkApi) => {

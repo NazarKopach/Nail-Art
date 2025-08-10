@@ -105,36 +105,6 @@ const BookingForm = () => {
           return (
             <Form className={styles.form}>
               <label className={styles.label}>
-                <span>Name: </span>
-                <Field
-                  type="text"
-                  name="clientName"
-                  className={styles.input}
-                  placeholder="Name"
-                />
-                <ErrorMessage
-                  className={styles.errorMessage}
-                  name="clientName"
-                  component="span"
-                />
-              </label>
-
-              <label className={styles.label}>
-                <span>Number: </span>
-                <Field
-                  className={styles.input}
-                  name="phoneNumber"
-                  type="tel"
-                  placeholder="+48*******"
-                />
-                <ErrorMessage
-                  className={styles.errorMessage}
-                  name="phoneNumber"
-                  component="span"
-                />
-              </label>
-
-              <label className={styles.label}>
                 <span>Service: </span>
                 <Field as="select" className={styles.input} name="serviceType">
                   <option disabled value="">

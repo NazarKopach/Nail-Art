@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 const INITIAL_VALUES = {
   name: "",
   email: "",
+  phone: "",
   password: "",
 };
 
@@ -61,6 +62,20 @@ const RegisterPage = () => {
               name="email"
               component="span"
             />
+            <label className={styles.label}>
+              <span>Number: </span>
+              <Field
+                className={styles.input}
+                name="phone"
+                type="tel"
+                placeholder="+48*******"
+              />
+              <ErrorMessage
+                className={styles.errorMessage}
+                name="phone"
+                component="span"
+              />
+            </label>
           </label>
           <label className={styles.label}>
             <span>Password:</span>

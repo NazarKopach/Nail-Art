@@ -6,16 +6,20 @@ import {
   fetchUserBookings,
 } from "../../redux/booking/operations";
 import styles from "./CatalogItem.module.css";
-import { selectUser } from "../../redux/auth/selectors";
+import { apiGetCurrentUserInfo } from "../../redux/auth/operations";
+import { selectUserInfo } from "../../redux/auth/selectors";
 
 const CatalogItem = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  console.log(user);
   const bookings = useSelector(userBookings);
+  const user = useSelector(selectUserInfo);
 
   useEffect(() => {
     dispatch(fetchUserBookings());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(apiGetCurrentUserInfo());
   }, [dispatch]);
 
   const handleDelet = async (id) => {
@@ -34,13 +38,13 @@ const CatalogItem = () => {
                 <p className={styles.catalog_item_title}>
                   Name:{" "}
                   <span className={styles.catalog_item_title_span}>
-                    {booking.clientName}
+                    {user.userName}
                   </span>
                 </p>
                 <p className={styles.catalog_item_title}>
                   Phone:{" "}
                   <span className={styles.catalog_item_title_span}>
-                    {booking.phoneNumber}
+                    {user.userPhone}
                   </span>
                 </p>
                 <p className={styles.catalog_item_title}>
