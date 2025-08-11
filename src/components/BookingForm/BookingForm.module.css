@@ -2,20 +2,35 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  min-width: 345px;
+  width: 100%;
+  max-width: 500px;
+
   border: 5px solid #808080;
   border-radius: 15px;
-  padding: 10px;
+  padding: 15px;
   margin-top: 10px;
   background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .input {
   font-size: 16px;
-  padding: 5px 10px;
+  height: 40px;
   background: rgb(255, 255, 255);
   border: 1px solid #808080;
   border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.select {
+  font-size: 16px;
+  height: 40px;
+  background: rgb(255, 255, 255);
+  border: 1px solid #808080;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .errorMessage {

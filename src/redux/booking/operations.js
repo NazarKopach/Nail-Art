@@ -41,22 +41,34 @@ export const addBookings = createAsyncThunk(
   "bookings/addBookings",
   async (bookingData, thunkApi) => {
     try {
-      const respons = await authInstance.post("/bookings", bookingData);
-      return respons.data;
+      const response = await authInstance.post("/bookings", bookingData);
+      return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
   }
 );
 
-export const deleteContact = createAsyncThunk(
+export const deleteBooking = createAsyncThunk(
   "bookings/deleteBookings",
-  async (contactId, thunkApi) => {
+  async (bookingId, thunkApi) => {
     try {
-      await authInstance.delete(`/bookings/${contactId}`);
-      return contactId;
+      await authInstance.delete(`/bookings/${bookingId}`);
+      return bookingId;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const patchBooking = createAsyncThunk(
+  "bookings/patchBooking",
+  async ({ id, partialData }, thunkApi) => {
+    try {
+      const response = await authInstance.patch(`/bookings/${id}`, partialData);
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response?.data || error.message);
     }
   }
 );

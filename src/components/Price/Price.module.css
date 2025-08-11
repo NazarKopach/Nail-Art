@@ -1,6 +1,7 @@
 .home_page_price {
   display: flex;
-  width: 350px;
+  width: 100%;
+  max-width: 500px;
   height: auto;
   margin-top: 10px;
   margin-right: auto;

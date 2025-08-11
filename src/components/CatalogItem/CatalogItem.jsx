@@ -1,31 +1,63 @@
 import { useDispatch, useSelector } from "react-redux";
 import { userBookings } from "../../redux/booking/selectors";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+// import { apiGetCurrentUserInfo } from "../../redux/auth/operations";
+// import { selectUserInfo } from "../../redux/auth/selectors";
 import {
-  deleteContact,
+  deleteBooking,
   fetchUserBookings,
 } from "../../redux/booking/operations";
 import styles from "./CatalogItem.module.css";
-import { apiGetCurrentUserInfo } from "../../redux/auth/operations";
-import { selectUserInfo } from "../../redux/auth/selectors";
+import UpdateMenu from "../UpdateMenu/UpdateMenu";
+
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(20, 20, 20, 0.6)",
+    overflowX: "hidden",
+    zIndex: 1000,
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%,-50%)",
+    width: "100%",
+    maxWidth: "500px",
+    height: "500px",
+    padding: "10px",
+    border: "none",
+    borderRadius: "0",
+    backgroundColor: "#808080",
+  },
+};
 
 const CatalogItem = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(userBookings);
-  const user = useSelector(selectUserInfo);
+  // const user = useSelector(selectUserInfo);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserBookings());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(apiGetCurrentUserInfo());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(apiGetCurrentUserInfo());
+  // }, [dispatch]);
 
   const handleDelet = async (id) => {
-    await dispatch(deleteContact(id)).unwrap();
+    await dispatch(deleteBooking(id)).unwrap();
     dispatch(fetchUserBookings());
   };
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   return (
     <div className={styles.catalog_item_div}>
@@ -34,7 +66,7 @@ const CatalogItem = () => {
           bookings.map((booking) => (
             <li key={booking._id} className={styles.catalog_item}>
               <div>
-                {" "}
+                {/* {" "}
                 <p className={styles.catalog_item_title}>
                   Name:{" "}
                   <span className={styles.catalog_item_title_span}>
@@ -46,7 +78,7 @@ const CatalogItem = () => {
                   <span className={styles.catalog_item_title_span}>
                     {user.userPhone}
                   </span>
-                </p>
+                </p> */}
                 <p className={styles.catalog_item_title}>
                   Service:{" "}
                   <span className={styles.catalog_item_title_span}>
@@ -89,7 +121,7 @@ const CatalogItem = () => {
                 <button
                   className={styles.catalog_item_btn}
                   type="button"
-                  onClick={() => handleDelet(booking._id)}
+                  onClick={openModal}
                 >
                   Update
                 </button>
@@ -100,6 +132,12 @@ const CatalogItem = () => {
           <p>Loading or no bookings found.</p>
         )}
       </ul>
+      <UpdateMenu
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        customStyles={customStyles}
+        id={bookings._id}
+      />
     </div>
   );
 };

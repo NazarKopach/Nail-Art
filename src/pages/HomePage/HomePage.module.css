@@ -15,19 +15,18 @@
 
 .home_page_button_link {
   padding: 12px 84px;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 .home_page_button:hover {
-  background-color: rgb(255, 255, 255);
-  border: 2px solid #808080;
+  background-color: #c0c0c0;
 }
 
 .homePageContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-image: url("/img_hero.jpg");
+  background-image: url("/img_hero13.jpg");
   background-size: cover;
   background-position: center;
   margin-right: auto;

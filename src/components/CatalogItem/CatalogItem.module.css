@@ -10,6 +10,7 @@
   border-radius: 15px;
   padding: 20px;
   margin: 10px;
+  background-color: white;
 }
 
 .catalog_item_btn_div {
@@ -35,7 +36,6 @@
 }
 
 .catalog_item_title_span {
-  font-family: "Times New Roman", Times, serif;
   font-weight: 500;
   font-size: 24px;
 }

@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addBookings,
-  deleteContact,
+  deleteBooking,
   fetchAllBookings,
   fetchReservedBookings,
   fetchUserBookings,
+  patchBooking,
 } from "./operations";
 
 const bookingsSlice = createSlice({
@@ -66,9 +67,16 @@ const bookingsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(deleteContact.fulfilled, (state, action) => {
+      .addCase(deleteBooking.fulfilled, (state, action) => {
         state.bookings = state.bookings.filter(
           (booking) => booking.id !== action.payload
+        );
+      })
+      .addCase(patchBooking.fulfilled, (state, action) => {
+        state.bookings = state.bookings.map((booking) =>
+          booking.id === action.payload.id
+            ? { ...booking, ...action.payload }
+            : booking
         );
       }),
 });

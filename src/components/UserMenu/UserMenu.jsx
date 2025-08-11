@@ -5,7 +5,6 @@ import {
 } from "../../redux/auth/operations";
 import { Icon } from "../Icon/Icon.jsx";
 import { useEffect, useState } from "react";
-
 import MobileMenu from "../MobileMenu/MobileMenu.jsx";
 import styles from "./UserMenu.module.css";
 import { selectUserInfo } from "../../redux/auth/selectors.js";
@@ -25,7 +24,7 @@ const customStyles = {
     padding: "34px",
     border: "none",
     borderRadius: "0",
-    backgroundColor: "#D2B48C",
+    backgroundColor: "#808080",
   },
 };
 
