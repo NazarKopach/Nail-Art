@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import {
   deleteBooking,
   fetchUserBookings,
+  patchBooking,
 } from "../../redux/booking/operations";
 import styles from "./CatalogItem.module.css";
 import UpdateMenu from "../UpdateMenu/UpdateMenu";
@@ -24,8 +25,7 @@ const customStyles = {
     transform: "translate(-50%,-50%)",
     width: "100%",
     maxWidth: "500px",
-    height: "500px",
-    padding: "10px",
+    height: "400px",
     border: "none",
     borderRadius: "0",
     backgroundColor: "#808080",
@@ -35,28 +35,30 @@ const customStyles = {
 const CatalogItem = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(userBookings);
-  // const user = useSelector(selectUserInfo);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchUserBookings());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(apiGetCurrentUserInfo());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(patchBooking());
+  }, [dispatch]);
 
   const handleDelet = async (id) => {
     await dispatch(deleteBooking(id)).unwrap();
     dispatch(fetchUserBookings());
   };
 
-  function openModal() {
+  function openModal(id) {
+    setSelectedBookingId(id);
     setIsOpen(true);
   }
 
   function closeModal() {
     setIsOpen(false);
+    setSelectedBookingId(null);
   }
 
   return (
@@ -66,19 +68,6 @@ const CatalogItem = () => {
           bookings.map((booking) => (
             <li key={booking._id} className={styles.catalog_item}>
               <div>
-                {/* {" "}
-                <p className={styles.catalog_item_title}>
-                  Name:{" "}
-                  <span className={styles.catalog_item_title_span}>
-                    {user.userName}
-                  </span>
-                </p>
-                <p className={styles.catalog_item_title}>
-                  Phone:{" "}
-                  <span className={styles.catalog_item_title_span}>
-                    {user.userPhone}
-                  </span>
-                </p> */}
                 <p className={styles.catalog_item_title}>
                   Service:{" "}
                   <span className={styles.catalog_item_title_span}>
@@ -121,7 +110,7 @@ const CatalogItem = () => {
                 <button
                   className={styles.catalog_item_btn}
                   type="button"
-                  onClick={openModal}
+                  onClick={() => openModal(booking._id)}
                 >
                   Update
                 </button>
@@ -136,7 +125,7 @@ const CatalogItem = () => {
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         customStyles={customStyles}
-        id={bookings._id}
+        id={selectedBookingId}
       />
     </div>
   );

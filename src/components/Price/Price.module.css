@@ -1,10 +1,21 @@
 .home_page_price {
   display: flex;
   width: 100%;
-  max-width: 500px;
+  max-width: 350px;
   height: auto;
   margin-top: 10px;
   margin-right: auto;
   margin-left: auto;
   border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+  .home_page_price {
+    max-width: 540px;
+  }
+}
+
+/* ////// PC //// */
+
+@media (min-width: 1440px) {
 }

@@ -19,7 +19,9 @@
 }
 
 .home_page_button:hover {
-  background-color: #c0c0c0;
+  background-color: white;
+  border: 1px solid #808080;
+  color: #808080;
 }
 
 .homePageContainer {

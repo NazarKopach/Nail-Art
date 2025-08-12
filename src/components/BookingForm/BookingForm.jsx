@@ -2,12 +2,18 @@ import styles from "./BookingForm.module.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { addBookingSchema } from "../../utils/schemas";
 import { useDispatch, useSelector } from "react-redux";
-import { addBookings, fetchAllBookings } from "../../redux/booking/operations";
+import { useEffect } from "react";
 import { allBookings, isBookingsLoading } from "../../redux/booking/selectors";
 import { toast } from "react-toastify";
+import {
+  addBookings,
+  fetchAllBookings,
+  fetchUserBookings,
+  patchBooking,
+} from "../../redux/booking/operations";
+
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { useEffect } from "react";
 import CustomSelect from "../CustomSelect/CustomSelect";
 
 const initialValues = {
@@ -19,7 +25,7 @@ const initialValues = {
   date: "",
 };
 
-const BookingForm = () => {
+const BookingForm = ({ id, closeModal }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isBookingsLoading);
   const dataBookings = useSelector(allBookings);
@@ -82,12 +88,36 @@ const BookingForm = () => {
     }
   };
 
+  const handleUpdateSubmit = async (id, values, actions) => {
+    try {
+      await dispatch(
+        patchBooking({
+          id,
+          partialData: values,
+        })
+      ).unwrap();
+      toast.success("Successfuly update booking!");
+      actions.resetForm();
+
+      closeModal();
+
+      dispatch(fetchUserBookings());
+    } catch (err) {
+      toast.error(err.message || "Something went wrong...");
+    }
+  };
+
   return (
     <div className={styles.contact_form_div}>
       <Formik
         initialValues={initialValues}
         validationSchema={addBookingSchema}
-        onSubmit={handleSubmit}
+        onSubmit={(values, actions) => {
+          if (id) {
+            return handleUpdateSubmit(id, values, actions);
+          }
+          return handleSubmit(values, actions);
+        }}
       >
         {({ values }) => {
           let availableTimes = time;
@@ -127,6 +157,8 @@ const BookingForm = () => {
                       options={{
                         enableTime: false,
                         dateFormat: "Y-m-d",
+                        altInput: true,
+                        altFormat: "d.m.Y",
                         minDate: "today",
                         disable: fullyBookedDates,
                         position: "auto left",
@@ -157,7 +189,13 @@ const BookingForm = () => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? "Adding Booking..." : "Booking"}
+                {isLoading
+                  ? id
+                    ? "Updating..."
+                    : "Adding..."
+                  : id
+                  ? "Update"
+                  : "Booking"}
               </button>
             </Form>
           );

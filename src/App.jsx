@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUserIsRefreshing } from "./redux/auth/selectors";
 import HomePage from "./pages/HomePage/HomePage";
 import SvgSprite from "./components/SvgSprite/SvgSprite";
+import Loader from "./components/Loader/Loader";
 
 const MainLayout = lazy(() => import("./MainLayout/MainLayout"));
 const BookingPage = lazy(() => import("./pages/BookingPage/BookingPage"));
@@ -29,7 +30,7 @@ function App() {
   if (isRefreshing) {
     return (
       <div>
-        <p>Loading....</p>
+        <Loader />
       </div>
     );
   }
@@ -37,22 +38,24 @@ function App() {
   return (
     <div>
       <SvgSprite />
-      <Routes>
-        <Route
-          path="/login"
-          element={<RestrictedRoute component={<LoginPage />} />}
-        />
-        <Route
-          path="/register"
-          element={<RestrictedRoute component={<RegisterPage />} />}
-        />
-        <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/booking" element={<BookingPage />} />
-          <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route
+            path="/login"
+            element={<RestrictedRoute component={<LoginPage />} />}
+          />
+          <Route
+            path="/register"
+            element={<RestrictedRoute component={<RegisterPage />} />}
+          />
+          <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/booking" element={<BookingPage />} />
+            <Route path="/catalog" element={<CatalogPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </Suspense>
       <ToastContainer position="top-center" />
     </div>
   );

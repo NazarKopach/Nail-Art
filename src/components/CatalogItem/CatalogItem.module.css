@@ -22,7 +22,7 @@
 
 .catalog_item_btn {
   background-color: #808080;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 .catalog_item_btn:hover {
@@ -32,7 +32,7 @@
 }
 
 .catalog_item_title {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .catalog_item_title_span {
