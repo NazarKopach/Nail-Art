@@ -8,16 +8,17 @@ import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { apiGetCurrentUser } from "./redux/auth/operations";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserIsRefreshing } from "./redux/auth/selectors";
-import HomePage from "./pages/HomePage/HomePage";
 import SvgSprite from "./components/SvgSprite/SvgSprite";
 import Loader from "./components/Loader/Loader";
 
 const MainLayout = lazy(() => import("./MainLayout/MainLayout"));
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const BookingPage = lazy(() => import("./pages/BookingPage/BookingPage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage/CatalogPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
+const CalendarPage = lazy(() => import("./pages/CalendarPage/CalendarPage"));
 
 function App() {
   const isRefreshing = useSelector(selectUserIsRefreshing);
@@ -52,6 +53,7 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/booking" element={<BookingPage />} />
             <Route path="/catalog" element={<CatalogPage />} />
+            <Route path="/admin-calendar" element={<CalendarPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

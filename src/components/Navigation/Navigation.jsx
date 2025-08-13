@@ -18,6 +18,13 @@ const Navigation = ({ closeModal, wrapperClass, linkClass }) => {
       <NavLink to="/catalog" className={buildCssClasses} onClick={closeModal}>
         Catalog
       </NavLink>
+      <NavLink
+        to="/admin-calendar"
+        className={buildCssClasses}
+        onClick={closeModal}
+      >
+        Calendar
+      </NavLink>
     </nav>
   );
 };

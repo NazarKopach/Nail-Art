@@ -106,40 +106,70 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
+import { useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { useDispatch } from "react-redux";
-import { addBookings } from "../../redux/booking/operations";
+import { useDispatch, useSelector } from "react-redux";
+import { allBookings } from "../../redux/booking/selectors";
+import { fetchAllBookings } from "../../redux/booking/operations";
+import styles from "./Calendar.module.css";
 
-export default function BookingCalendar() {
+export default function MyCalendar() {
   const dispatch = useDispatch();
+  const bookings = useSelector(allBookings);
+  console.log(bookings);
 
-  const handleDateClick = (info) => {
-    const clientName = prompt("Ім'я клієнта:");
-    const time = prompt("О котрій годині? (формат HH:MM, напр. 14:30)");
-
-    if (!clientName || !time) return;
-
-    const date = info.dateStr;
-    const newBooking = { clientName, date, time };
-
-    dispatch(addBookings(newBooking));
+  const handleDateClick = (arg) => {
+    alert(arg.dateStr);
   };
+
+  const handleEventClick = (info) => {
+    alert(
+      `Подія: ${info.event.title}\nЧас: ${info.event.extendedProps.description}`
+    );
+  };
+
+  const events = bookings.map((b) => ({
+    id: b._id?.toString(),
+    title: b.userId.name,
+    start: b.date,
+    editable: true,
+    backgroundColor: "black",
+    className: styles.important_event,
+    extendedProps: {
+      description: b.dodatek,
+      coment: b.time,
+    },
+  }));
+
+  useEffect(() => {
+    dispatch(fetchAllBookings());
+  }, [dispatch]);
 
   return (
     <FullCalendar
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
+      events={events}
+      displayEventTime={false}
       dateClick={handleDateClick}
-      headerToolbar={{
-        left: "prev,next today",
-        center: "title",
-        right: "dayGridMonth,timeGridWeek,timeGridDay",
-      }}
-      eventClick={(info) => {
-        alert(`Резервація: ${info.event.title}\nЧас: ${info.event.start}`);
+      eventClick={handleEventClick}
+      eventContent={(arg) => {
+        return {
+          html: `
+            <div>
+              <b>${arg.event.title}</b>
+              <div class='calendar_dodatek'>
+                ${arg.event.extendedProps.description || ""}
+              </div>
+              <div class='calendar_dodatek'>
+                ${arg.event.extendedProps.coment || ""}
+              </div>
+            </div>
+          `,
+        };
       }}
     />
   );
