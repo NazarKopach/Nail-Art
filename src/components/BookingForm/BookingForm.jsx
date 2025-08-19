@@ -16,18 +16,25 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import CustomSelect from "../CustomSelect/CustomSelect";
 
-const initialValues = {
-  serviceType: "",
-  dodatek: "",
-  time: "",
-  date: "",
-};
-
-const BookingForm = ({ id, closeModal }) => {
+const BookingForm = ({ id, closeModal, type, price }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isBookingsLoading);
   const dataBookings = useSelector(allBookings);
-  const time = ["9:00", "11:00", "13:00", "15:00", "17:00"];
+
+  const time = [
+    { id: "1", value: "9:00" },
+    { id: "2", value: "11:00" },
+    { id: "3", value: "13:00" },
+    { id: "4", value: "15:00" },
+    { id: "5", value: "17:00" },
+  ];
+
+  const dodatek = [
+    { id: "1", value: "Zdobienia", price: "10" },
+    { id: "2", value: "Przedluzenie 1 paznokcia", price: "10" },
+    { id: "3", value: "French", price: "30" },
+    { id: "4", value: "Usuwanie materialu", price: "10" },
+  ];
 
   useEffect(() => {
     dispatch(fetchAllBookings());
@@ -67,6 +74,8 @@ const BookingForm = ({ id, closeModal }) => {
       await dispatch(addBookings(values)).unwrap();
       toast.success("Successfuly add booking!");
       actions.resetForm();
+
+      closeModal();
     } catch (err) {
       toast.error(err.message || "Something went wrong...");
     }
@@ -94,7 +103,7 @@ const BookingForm = ({ id, closeModal }) => {
   return (
     <div className={styles.contact_form_div}>
       <Formik
-        initialValues={initialValues}
+        initialValues={{ serviceType: type, dodatek: "", time: "", date: "" }}
         validationSchema={addBookingSchema}
         onSubmit={(values, actions) => {
           if (id) {
@@ -119,18 +128,6 @@ const BookingForm = ({ id, closeModal }) => {
 
           return (
             <Form className={styles.form}>
-              {/* <CustomSelect
-                label="Service:"
-                name="serviceType"
-                options={services}
-                selectOption={"Select service"}
-              />
-              <CustomSelect
-                label="Dodatkowo:"
-                name="dodatek"
-                options={dodatek}
-                selectOption={"Wybierz dodatek"}
-              /> */}
               <label className={styles.label}>
                 <Field name="date">
                   {({ form, field }) => (
@@ -157,31 +154,13 @@ const BookingForm = ({ id, closeModal }) => {
                   component="span"
                 />
               </label>
+              <CustomSelect
+                label="Dodatkowo:"
+                name="dodatek"
+                options={dodatek}
+                selectOption={"Wybierz dodatek"}
+              />
               {values.date && (
-                // <label className={styles.label}>
-                //   <span>Time: </span>
-                //   <Field
-                //     as="select"
-                //     className={styles}
-                //     name="time"
-                //     type="time"
-                //     disabled={!values.date || availableTimes.length === 0}
-                //   >
-                //     <option disabled value="">
-                //       {values.date ? "Select time" : "First pick a date"}
-                //     </option>
-                //     {availableTimes.map((time) => (
-                //       <option key={time} value={time}>
-                //         {time}
-                //       </option>
-                //     ))}
-                //   </Field>
-                //   <ErrorMessage
-                //     className={styles.errorMessage}
-                //     name="time"
-                //     component="span"
-                //   />
-                // </label>
                 <CustomSelect
                   label="Time:"
                   name="time"
@@ -191,6 +170,7 @@ const BookingForm = ({ id, closeModal }) => {
                   }
                 />
               )}
+              <p>Price:{price} zl</p>
               <button
                 className={styles.button}
                 type="submit"

@@ -16,7 +16,8 @@ const CatalogItem = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(userBookings);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectedBookingId, setSelectedBookingId] = useState(null);
+  const [selectedBookingId, setSelectedBookingId] = useState("");
+  const [selectType, setSelectType] = useState("");
 
   useEffect(() => {
     dispatch(fetchUserBookings());
@@ -31,8 +32,9 @@ const CatalogItem = () => {
     dispatch(fetchUserBookings());
   };
 
-  function openModal(id) {
+  function openModal(id, type) {
     setSelectedBookingId(id);
+    setSelectType(type);
     setIsOpen(true);
   }
 
@@ -90,7 +92,7 @@ const CatalogItem = () => {
                 <button
                   className={styles.catalog_item_btn}
                   type="button"
-                  onClick={() => openModal(booking._id)}
+                  onClick={() => openModal(booking._id, booking.serviceType)}
                 >
                   Update
                 </button>
@@ -106,6 +108,7 @@ const CatalogItem = () => {
         closeModal={closeModal}
         customStyles={customStyles}
         id={selectedBookingId}
+        type={selectType}
       />
     </div>
   );

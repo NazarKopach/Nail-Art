@@ -17,13 +17,13 @@ const CustomSelect = ({ label, options, selectOption, ...props }) => {
           {options.map((option) => (
             <li
               className={styles.custom_select_item}
-              key={option}
+              key={option.id}
               onClick={() => {
-                helpers.setValue(option);
+                helpers.setValue(option.value);
                 setOpen(false);
               }}
             >
-              {option}
+              {option.value}
             </li>
           ))}
         </ul>

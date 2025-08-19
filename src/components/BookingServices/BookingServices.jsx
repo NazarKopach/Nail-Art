@@ -5,6 +5,9 @@ import UpdateMenu from "../UpdateMenu/UpdateMenu";
 
 const BookingServices = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [selectType, setSelectType] = useState("");
+  const [selectPrice, setSelectPrice] = useState("");
+
   const services = [
     { services: "Manicure hybrydowy", price: "150" },
     { services: "Zel(krotki)", price: "170" },
@@ -12,13 +15,11 @@ const BookingServices = () => {
     { services: "Zel(dlugie od 2)", price: "190" },
     { services: "Przedluzanie (do 3)", price: "240" },
     { services: "Przedluzanie (od 3)", price: "260" },
-    { services: "Zdobienia", price: "10" },
-    { services: "Przedluzenie 1 paznokcia", price: "10" },
-    { services: "French", price: "30" },
-    { services: "Usuwanie materialu", price: "10" },
   ];
 
-  function openModal() {
+  function openModal(type, price) {
+    setSelectType(type);
+    setSelectPrice(price);
     setIsOpen(true);
   }
 
@@ -39,7 +40,7 @@ const BookingServices = () => {
               <button
                 className={styles.booking_services_btn}
                 type="button"
-                onClick={openModal}
+                onClick={() => openModal(service.services, service.price)}
               >
                 reserv
               </button>
@@ -51,6 +52,8 @@ const BookingServices = () => {
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         customStyles={customStyles}
+        type={selectType}
+        price={selectPrice}
       />
     </div>
   );
