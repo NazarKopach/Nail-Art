@@ -23,7 +23,7 @@ const CustomSelect = ({ label, options, selectOption, ...props }) => {
                 setOpen(false);
               }}
             >
-              {option.value}
+              {`${option.value} ${option.price} `}
             </li>
           ))}
         </ul>
