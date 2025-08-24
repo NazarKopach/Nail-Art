@@ -67,10 +67,7 @@ const CatalogItem = () => {
                 <p className={styles.catalog_item_title}>
                   Data:{" "}
                   <span className={styles.catalog_item_title_span}>
-                    {booking.date
-                      ? new Date(booking.date).toLocaleDateString()
-                      : "Brak daty"}
-                    ;
+                    {booking.date};
                   </span>
                 </p>
                 <p className={styles.catalog_item_title}>

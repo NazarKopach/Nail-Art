@@ -119,7 +119,6 @@ import styles from "./Calendar.module.css";
 export default function MyCalendar() {
   const dispatch = useDispatch();
   const bookings = useSelector(allBookings);
-  console.log(bookings);
 
   const handleDateClick = (arg) => {
     alert(arg.dateStr);

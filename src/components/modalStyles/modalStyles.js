@@ -1,7 +1,6 @@
 export const customStyles = {
   overlay: {
     backgroundColor: "rgba(20, 20, 20, 0.6)",
-    overflowX: "hidden",
     zIndex: 1000,
   },
   content: {
@@ -12,8 +11,10 @@ export const customStyles = {
     transform: "translate(-50%,-50%)",
     width: "100%",
     maxWidth: "500px",
-    height: "400px",
+    height: "100%",
+    maxHeight: "500px",
     border: "none",
+    overflow: "hidden",
     borderRadius: "0",
     backgroundColor: "#808080",
   },
