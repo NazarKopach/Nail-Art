@@ -13,12 +13,17 @@ const BookingForm = ({ type, price }) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const dataBookings = useSelector(allBookings);
-  console.log(dataBookings);
   const [currentDate, setCurrentDate] = useState(dayjs());
   const startOfMonth = currentDate.startOf("month");
   const endOfMonth = currentDate.endOf("month");
   const startDay = startOfMonth.isoWeekday();
   const daysInMonth = endOfMonth.date();
+  const dodatek = [
+    { id: "1", value: "Zdobienia", price: "10" },
+    { id: "2", value: "Przedluzenie 1 paznokcia", price: "10" },
+    { id: "3", value: "French", price: "30" },
+    { id: "4", value: "Usuwanie materialu", price: "10" },
+  ];
   const data = {
     serviceType: type,
     dodatek: "",
@@ -27,7 +32,7 @@ const BookingForm = ({ type, price }) => {
   };
 
   const days = [];
-  for (let i = 1; i < startDay; i++) days.push(null); // пусті клітинки
+  for (let i = 1; i < startDay; i++) days.push(null);
   for (let d = 1; d <= daysInMonth; d++) days.push(d);
 
   const dispatch = useDispatch();
@@ -72,7 +77,10 @@ const BookingForm = ({ type, price }) => {
           </div>
         ))}
       </div>
-      <p className={styles.booking_calendar_service}>{`${type} ${price} zl`}</p>
+      <p className={styles.booking_calendar_service}>
+        {`${type} ${price} zl`}{" "}
+        <button className={styles.booking_add_option}>+</button>
+      </p>
       {date.length !== 0 && (
         <div className={styles.booking_calendar_time}>
           {["9:00", "11:00", "13:00", "15:00", "17:00"].map((t) => (

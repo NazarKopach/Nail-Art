@@ -42,6 +42,11 @@
   background-color: white;
 }
 
+.booking_add_option {
+  margin: 30px;
+  text-align: center;
+}
+
 /* .form {
   display: flex;
   flex-direction: column;
