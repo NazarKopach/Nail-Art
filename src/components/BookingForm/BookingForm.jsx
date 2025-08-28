@@ -50,14 +50,16 @@ const BookingForm = ({ type, price }) => {
     }
   };
 
+  const setData = () => {
+    const now = dayjs();
+    if (currentDate.isBefore(now, "month")) return;
+    setCurrentDate(currentDate.subtract(1, "month"));
+  };
+
   return (
     <div className={styles.booking_form_div}>
       <div className={styles.booking_calendar_month}>
-        <button
-          onClick={() => setCurrentDate(currentDate.subtract(1, "month"))}
-        >
-          ←
-        </button>
+        <button onClick={setData}>←</button>
         <h2>{currentDate.format("MMMM YYYY")}</h2>
         <button onClick={() => setCurrentDate(currentDate.add(1, "month"))}>
           →
