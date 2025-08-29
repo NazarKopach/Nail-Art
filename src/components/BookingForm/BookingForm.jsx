@@ -12,6 +12,11 @@ dayjs.extend(isoWeek);
 const BookingForm = ({ type, price }) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [option, setOption] = useState("");
+  const [optionPrice, setOptionPrice] = useState("");
+  const [value, setValue] = useState(price);
+  const [services, setServices] = useState(type);
+  const [open, setOpen] = useState(false);
   const dataBookings = useSelector(allBookings);
   const [currentDate, setCurrentDate] = useState(dayjs());
   const startOfMonth = currentDate.startOf("month");
@@ -26,7 +31,7 @@ const BookingForm = ({ type, price }) => {
   ];
   const data = {
     serviceType: type,
-    dodatek: "",
+    dodatek: option,
     time: time,
     date: date,
   };
@@ -43,6 +48,7 @@ const BookingForm = ({ type, price }) => {
 
   const handleSubmit = async (data) => {
     try {
+      console.log(data);
       await dispatch(addBookings(data)).unwrap();
       toast.success("Successfuly add booking!");
     } catch (err) {
@@ -50,16 +56,17 @@ const BookingForm = ({ type, price }) => {
     }
   };
 
-  const setData = () => {
+  const blockPrevData = () => {
     const now = dayjs();
-    if (currentDate.isBefore(now, "month")) return;
-    setCurrentDate(currentDate.subtract(1, "month"));
+    const prevMonth = currentDate.subtract(1, "month");
+    if (prevMonth.isBefore(now.startOf("month"))) return;
+    setCurrentDate(prevMonth);
   };
 
   return (
     <div className={styles.booking_form_div}>
       <div className={styles.booking_calendar_month}>
-        <button onClick={setData}>←</button>
+        <button onClick={blockPrevData}>←</button>
         <h2>{currentDate.format("MMMM YYYY")}</h2>
         <button onClick={() => setCurrentDate(currentDate.add(1, "month"))}>
           →
@@ -80,9 +87,36 @@ const BookingForm = ({ type, price }) => {
         ))}
       </div>
       <p className={styles.booking_calendar_service}>
-        {`${type} ${price} zl`}{" "}
-        <button className={styles.booking_add_option}>+</button>
+        {`${services} ${value} zl`}{" "}
       </p>
+      {option && (
+        <p className={styles.booking_calendar_service}>
+          {option} {optionPrice} zl
+        </p>
+      )}
+      <button
+        className={styles.booking_add_option}
+        onClick={() => setOpen(!open)}
+      >
+        dodaj dodatek+
+        {open && (
+          <ul className={styles.custom_select_list}>
+            {dodatek.map((item) => (
+              <li
+                className={styles.custom_select_item}
+                key={item.id}
+                onClick={() => {
+                  setOption(item.value);
+                  setOptionPrice(item.price);
+                  setOpen(false);
+                }}
+              >
+                {`${item.value} ${item.price} zl`}
+              </li>
+            ))}
+          </ul>
+        )}
+      </button>
       {date.length !== 0 && (
         <div className={styles.booking_calendar_time}>
           {["9:00", "11:00", "13:00", "15:00", "17:00"].map((t) => (
