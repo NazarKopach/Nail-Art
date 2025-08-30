@@ -77,7 +77,6 @@ const CatalogItem = () => {
                   </span>
                 </p>
               </div>
-
               <div className={styles.catalog_item_btn_div}>
                 <button
                   className={styles.catalog_item_btn}

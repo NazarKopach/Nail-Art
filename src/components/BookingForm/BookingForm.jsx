@@ -4,8 +4,11 @@ import isoWeek from "dayjs/plugin/isoWeek";
 import dayjs from "dayjs";
 import "dayjs/locale/pl"; // імпортуємо польську локалізацію
 import { useDispatch, useSelector } from "react-redux";
-import { allBookings } from "../../redux/booking/selectors";
-import { addBookings, fetchAllBookings } from "../../redux/booking/operations";
+import { reservedDate } from "../../redux/booking/selectors";
+import {
+  addBookings,
+  fetchReservedBookings,
+} from "../../redux/booking/operations";
 import { toast } from "react-toastify";
 dayjs.extend(isoWeek);
 
@@ -17,12 +20,13 @@ const BookingForm = ({ type, price }) => {
   const [value, setValue] = useState(price);
   const [services, setServices] = useState(type);
   const [open, setOpen] = useState(false);
-  const dataBookings = useSelector(allBookings);
+  const reservations = useSelector(reservedDate);
   const [currentDate, setCurrentDate] = useState(dayjs());
   const startOfMonth = currentDate.startOf("month");
   const endOfMonth = currentDate.endOf("month");
   const startDay = startOfMonth.isoWeekday();
   const daysInMonth = endOfMonth.date();
+
   const dodatek = [
     { id: "1", value: "Zdobienia", price: "10" },
     { id: "2", value: "Przedluzenie 1 paznokcia", price: "10" },
@@ -43,7 +47,7 @@ const BookingForm = ({ type, price }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllBookings());
+    dispatch(fetchReservedBookings());
   }, [dispatch]);
 
   const handleSubmit = async (data) => {
@@ -55,6 +59,12 @@ const BookingForm = ({ type, price }) => {
       toast.error(err.message || "Something went wrong...");
     }
   };
+
+  const resDates = reservations
+    .filter((res) => dayjs(res.date).format("YYYY-MM-DD") === date)
+    .map((res) => res.date);
+
+  console.log(resDates);
 
   const blockPrevData = () => {
     const now = dayjs();
@@ -86,14 +96,23 @@ const BookingForm = ({ type, price }) => {
           </div>
         ))}
       </div>
-      <p className={styles.booking_calendar_service}>
-        {`${services} ${value} zl`}{" "}
-      </p>
-      {option && (
+      <div className={styles.booking_calendar_service_div}>
         <p className={styles.booking_calendar_service}>
-          {option} {optionPrice} zl
+          {`${services} ${value} zl`}{" "}
         </p>
-      )}
+        {option && (
+          <p className={styles.booking_calendar_service}>
+            {option} {optionPrice} zl{" "}
+            <button
+              className={styles.booking_calendar_option_delete}
+              onClick={() => setOption("")}
+            >
+              del
+            </button>
+          </p>
+        )}
+      </div>
+
       <button
         className={styles.booking_add_option}
         onClick={() => setOpen(!open)}

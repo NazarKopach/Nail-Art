@@ -132,7 +132,7 @@ export default function MyCalendar() {
 
   const events = bookings.map((b) => ({
     id: b._id?.toString(),
-    title: b.userId.name,
+    title: b.userId,
     start: b.date,
     editable: true,
     backgroundColor: "black",

@@ -33,6 +33,9 @@
   padding: 10px;
 }
 
+.booking_calendar_service_div {
+}
+
 .booking_calendar_service {
   text-align: center;
   border: 1px solid transparent;
@@ -40,12 +43,20 @@
   padding: 10px;
   margin: 10px;
   background-color: white;
+  padding: 3px;
+  margin: 0;
 }
 
 .booking_add_option {
   text-align: center;
   position: relative;
   margin: 5px;
+}
+
+.booking_calendar_option_delete {
+  width: 30px;
+  height: 20px;
+  padding: 0;
 }
 
 .custom_select_list {
