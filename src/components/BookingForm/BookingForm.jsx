@@ -12,20 +12,22 @@ import {
 import { toast } from "react-toastify";
 dayjs.extend(isoWeek);
 
-const BookingForm = ({ type, price }) => {
+const BookingForm = ({ type, price, closeModal }) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [option, setOption] = useState("");
   const [optionPrice, setOptionPrice] = useState("");
   const [value, setValue] = useState(price);
   const [services, setServices] = useState(type);
-  const [open, setOpen] = useState(false);
+  const [activeDodatek, setActiveDodatek] = useState(false);
   const reservations = useSelector(reservedDate);
   const [currentDate, setCurrentDate] = useState(dayjs());
   const startOfMonth = currentDate.startOf("month");
   const endOfMonth = currentDate.endOf("month");
   const startDay = startOfMonth.isoWeekday();
   const daysInMonth = endOfMonth.date();
+  const [activeTime, setActiveTime] = useState(null);
+  const [activeDate, setActiveDate] = useState("");
 
   const dodatek = [
     { id: "1", value: "Zdobienia", price: "10" },
@@ -55,6 +57,8 @@ const BookingForm = ({ type, price }) => {
       console.log(data);
       await dispatch(addBookings(data)).unwrap();
       toast.success("Successfuly add booking!");
+
+      closeModal();
     } catch (err) {
       toast.error(err.message || "Something went wrong...");
     }
@@ -63,8 +67,6 @@ const BookingForm = ({ type, price }) => {
   const resDates = reservations
     .filter((res) => dayjs(res.date).format("YYYY-MM-DD") === date)
     .map((res) => res.date);
-
-  console.log(resDates);
 
   const blockPrevData = () => {
     const now = dayjs();
@@ -88,9 +90,13 @@ const BookingForm = ({ type, price }) => {
         ))}
         {days.map((d, idx) => (
           <div
-            className={styles.booking_calendar_day}
+            className={`${styles.booking_calendar_day} ${
+              activeDate === d ? styles.active_calendar_day : ""
+            }`}
             key={idx}
-            onClick={() => setDate(currentDate.format(`${d}.MM.YYYY`))}
+            onClick={() => {
+              setDate(currentDate.format(`${d}.MM.YYYY`)), setActiveDate(d);
+            }}
           >
             {d}
           </div>
@@ -115,31 +121,37 @@ const BookingForm = ({ type, price }) => {
 
       <button
         className={styles.booking_add_option}
-        onClick={() => setOpen(!open)}
+        onClick={() => setActiveDodatek(!activeDodatek)}
       >
         dodaj dodatek+
-        {open && (
-          <ul className={styles.custom_select_list}>
-            {dodatek.map((item) => (
-              <li
-                className={styles.custom_select_item}
-                key={item.id}
-                onClick={() => {
-                  setOption(item.value);
-                  setOptionPrice(item.price);
-                  setOpen(false);
-                }}
-              >
-                {`${item.value} ${item.price} zl`}
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul className={styles.custom_select_list}>
+          {dodatek.map((item) => (
+            <li
+              className={styles.custom_select_item}
+              key={item.id}
+              onClick={() => {
+                setOption(item.value);
+                setOptionPrice(item.price);
+                setOpen(false);
+              }}
+            >
+              {`${item.value} ${item.price} zl`}
+            </li>
+          ))}
+        </ul>
       </button>
       {date.length !== 0 && (
         <div className={styles.booking_calendar_time}>
           {["9:00", "11:00", "13:00", "15:00", "17:00"].map((t) => (
-            <button key={t} onClick={() => setTime(t)}>
+            <button
+              key={t}
+              onClick={() => {
+                setTime(t), setActiveTime(t);
+              }}
+              className={`${styles.booking_time_btn} ${
+                activeTime === t ? styles.active_time_btn : ""
+              }`}
+            >
               {t}
             </button>
           ))}
