@@ -24,7 +24,7 @@
   color: #808080;
 }
 
-.homePageContainer {
+.home_page_container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,6 +38,15 @@
   padding-top: 10px;
 }
 
+.home_page_title {
+  font-size: 80px;
+  text-align: center;
+}
+
+.home_page_span {
+  color: rgb(77, 75, 75);
+}
+
 /* ////// TABLET //// */
 
 @media (min-width: 768px) {
@@ -45,6 +54,10 @@
     width: 300px;
     height: 80px;
     font-size: 24px;
+  }
+
+  .home_page_title {
+    font-size: 150px;
   }
 }
 

@@ -14,6 +14,7 @@ import Loader from "./components/Loader/Loader";
 const MainLayout = lazy(() => import("./MainLayout/MainLayout"));
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const BookingPage = lazy(() => import("./pages/BookingPage/BookingPage"));
+const Gallery = lazy(() => import("./components/Gallery/Gallery"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage/CatalogPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
@@ -52,6 +53,7 @@ function App() {
           <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
             <Route path="/home" element={<HomePage />} />
             <Route path="/booking" element={<BookingPage />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/admin-calendar" element={<CalendarPage />} />
             <Route path="*" element={<NotFoundPage />} />

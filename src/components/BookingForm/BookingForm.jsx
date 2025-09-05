@@ -124,7 +124,11 @@ const BookingForm = ({ type, price, closeModal }) => {
         onClick={() => setActiveDodatek(!activeDodatek)}
       >
         dodaj dodatek+
-        <ul className={styles.custom_select_list}>
+        <ul
+          className={`${styles.custom_select_list} ${
+            activeDodatek ? styles.active_custom_select_list : ""
+          }`}
+        >
           {dodatek.map((item) => (
             <li
               className={styles.custom_select_item}
@@ -132,7 +136,7 @@ const BookingForm = ({ type, price, closeModal }) => {
               onClick={() => {
                 setOption(item.value);
                 setOptionPrice(item.price);
-                setOpen(false);
+                setActiveDodatek(false);
               }}
             >
               {`${item.value} ${item.price} zl`}
