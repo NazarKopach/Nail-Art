@@ -18,3 +18,5 @@ export const customStyles = {
     backgroundColor: "#808080",
   },
 };
+
+export const customStylesGallery = {};
