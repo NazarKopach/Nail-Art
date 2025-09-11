@@ -83,7 +83,7 @@
 
 .custom_select_list {
   position: absolute;
-  top: 100%;
+  bottom: 100%;
   right: -25%;
   overflow-y: auto;
   border: 1px solid #808080;

@@ -21,13 +21,13 @@ const BookingForm = ({ type, price, closeModal }) => {
   const [services, setServices] = useState(type);
   const [activeDodatek, setActiveDodatek] = useState(false);
   const reservations = useSelector(reservedDate);
+  const [activeTime, setActiveTime] = useState(null);
+  const [activeDate, setActiveDate] = useState("");
   const [currentDate, setCurrentDate] = useState(dayjs());
   const startOfMonth = currentDate.startOf("month");
   const endOfMonth = currentDate.endOf("month");
   const startDay = startOfMonth.isoWeekday();
   const daysInMonth = endOfMonth.date();
-  const [activeTime, setActiveTime] = useState(null);
-  const [activeDate, setActiveDate] = useState("");
 
   const dodatek = [
     { id: "1", value: "Zdobienia", price: "10" },

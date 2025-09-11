@@ -7,7 +7,7 @@ const HomePage = () => {
     <div>
       <div className={styles.home_page_container}>
         <h1 className={styles.home_page_title}>
-          <span className={styles.home_page_span}>Nail</span>Art
+          <span className={styles.home_page_span}>Nail</span>ArtWpr
         </h1>
         <button type="button" className={styles.home_page_button}>
           <Link className={styles.home_page_button_link} to={"/booking"}>
