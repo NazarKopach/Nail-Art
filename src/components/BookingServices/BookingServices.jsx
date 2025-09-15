@@ -9,12 +9,36 @@ const BookingServices = () => {
   const [selectPrice, setSelectPrice] = useState("");
 
   const services = [
-    { services: "Manicure hybrydowy", price: "150" },
-    { services: "Zel(krotki)", price: "170" },
-    { services: "Zel(srednia dlugosc od 1)", price: "180" },
-    { services: "Zel(dlugie od 2)", price: "190" },
-    { services: "Przedluzanie (do 3)", price: "240" },
-    { services: "Przedluzanie (od 3)", price: "260" },
+    {
+      services: "Manicure hybrydowy",
+      price: "150",
+      src: "./public/img/gallery/nail_img1.jpg",
+    },
+    {
+      services: "Zel(krotki)",
+      price: "170",
+      src: "./public/img/gallery/nail_img2.jpg",
+    },
+    {
+      services: "Zel(srednia dlugosc od 1)",
+      price: "180",
+      src: "./public/img/gallery/nail_img4.jpg",
+    },
+    {
+      services: "Zel(dlugie od 2)",
+      price: "190",
+      src: "./public/img/gallery/nail_img6.jpg",
+    },
+    {
+      services: "Przedluzanie (do 3)",
+      price: "240",
+      src: "./public/img/gallery/nail_img7.jpg",
+    },
+    {
+      services: "Przedluzanie (od 3)",
+      price: "260",
+      src: "./public/img/gallery/nail_img9.jpg",
+    },
   ];
 
   function openModal(type, price) {
@@ -33,8 +57,12 @@ const BookingServices = () => {
         {services.map((service) => (
           <li className={styles.booking_services_item} key={service.services}>
             <div>
-              <p>{service.services}</p>
-              <p>{service.price} zl</p>
+              <div className={styles.booking_services_price_div}>
+                <p>{service.services}</p>
+                <p>{service.price} zl</p>
+              </div>
+              <img src={service.src} width="40" />
+              <button className={styles.booking_services_btn_info}>...</button>
             </div>
             <div>
               <button

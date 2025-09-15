@@ -20,7 +20,6 @@ const BookingForm = ({ type, price, closeModal }) => {
   const [value, setValue] = useState(price);
   const [services, setServices] = useState(type);
   const [activeDodatek, setActiveDodatek] = useState(false);
-  const reservations = useSelector(reservedDate);
   const [activeTime, setActiveTime] = useState(null);
   const [activeDate, setActiveDate] = useState("");
   const [currentDate, setCurrentDate] = useState(dayjs());
@@ -29,18 +28,14 @@ const BookingForm = ({ type, price, closeModal }) => {
   const startDay = startOfMonth.isoWeekday();
   const daysInMonth = endOfMonth.date();
 
+  const reservations = useSelector(reservedDate);
+
   const dodatek = [
     { id: "1", value: "Zdobienia", price: "10" },
     { id: "2", value: "Przedluzenie 1 paznokcia", price: "10" },
     { id: "3", value: "French", price: "30" },
     { id: "4", value: "Usuwanie materialu", price: "10" },
   ];
-  const data = {
-    serviceType: type,
-    dodatek: option,
-    time: time,
-    date: date,
-  };
 
   const days = [];
   for (let i = 1; i < startDay; i++) days.push(null);
@@ -50,11 +45,17 @@ const BookingForm = ({ type, price, closeModal }) => {
 
   useEffect(() => {
     dispatch(fetchReservedBookings());
-  }, [dispatch]);
+    setValue(Number(price) + (optionPrice ? Number(optionPrice) : 0));
+  }, [dispatch, optionPrice, price]);
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async () => {
+    const data = {
+      serviceType: type,
+      dodatek: option,
+      time: time,
+      date: date,
+    };
     try {
-      console.log(data);
       await dispatch(addBookings(data)).unwrap();
       toast.success("Successfuly add booking!");
 
@@ -64,9 +65,17 @@ const BookingForm = ({ type, price, closeModal }) => {
     }
   };
 
-  const resDates = reservations
-    .filter((res) => dayjs(res.date).format("YYYY-MM-DD") === date)
-    .map((res) => res.date);
+  const resDates = reservations.map((item) => {
+    if (date.includes(item.date)) {
+      return item.date;
+    }
+  });
+
+  const resTime = reservations.map((item) => {
+    if (date.includes(item.date)) {
+      return item.time;
+    }
+  });
 
   const blockPrevData = () => {
     const now = dayjs();
@@ -88,19 +97,29 @@ const BookingForm = ({ type, price, closeModal }) => {
         {["mon", "tue", "wed", "thu", "fri", "sat", "sun"].map((d) => (
           <div key={d}>{d}</div>
         ))}
-        {days.map((d, idx) => (
-          <div
-            className={`${styles.booking_calendar_day} ${
-              activeDate === d ? styles.active_calendar_day : ""
-            }`}
-            key={idx}
-            onClick={() => {
-              setDate(currentDate.format(`${d}.MM.YYYY`)), setActiveDate(d);
-            }}
-          >
-            {d}
-          </div>
-        ))}
+        {days.map((d, idx) => {
+          if (!d) return <div key={idx}></div>; // пропускаємо пусті клітинки
+
+          const dayDate = currentDate.date(d); // створюємо дату для цього дня
+          const isPast = dayDate.isBefore(dayjs(), "day"); // чи день вже минув
+
+          return (
+            <div
+              key={idx}
+              className={`${styles.booking_calendar_day} 
+        ${activeDate === d ? styles.active_calendar_day : ""} 
+        ${isPast ? styles.disabled_day : ""}`} // додаємо новий стиль
+              onClick={() => {
+                if (!isPast) {
+                  setDate(dayDate.format("YYYY-MM-DD"));
+                  setActiveDate(d);
+                }
+              }}
+            >
+              {d}
+            </div>
+          );
+        })}
       </div>
       <div className={styles.booking_calendar_service_div}>
         <p className={styles.booking_calendar_service}>
@@ -111,7 +130,9 @@ const BookingForm = ({ type, price, closeModal }) => {
             {option} {optionPrice} zl{" "}
             <button
               className={styles.booking_calendar_option_delete}
-              onClick={() => setOption("")}
+              onClick={() => {
+                setOption(""), setOptionPrice("");
+              }}
             >
               del
             </button>
@@ -149,6 +170,7 @@ const BookingForm = ({ type, price, closeModal }) => {
           {["9:00", "11:00", "13:00", "15:00", "17:00"].map((t) => (
             <button
               key={t}
+              disabled={resTime.includes(t)} // блокуємо вже зайняті
               onClick={() => {
                 setTime(t), setActiveTime(t);
               }}
@@ -161,7 +183,7 @@ const BookingForm = ({ type, price, closeModal }) => {
           ))}
         </div>
       )}
-      <button type="submit" onClick={() => handleSubmit(data)}>
+      <button type="submit" onClick={() => handleSubmit()}>
         booking
       </button>
     </div>

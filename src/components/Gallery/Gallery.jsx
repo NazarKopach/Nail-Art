@@ -19,55 +19,55 @@ const Gallery = () => {
   return (
     <div className={styles.gallery_wrapper}>
       <img
-        src="/public/img/gallery/nail_img1.jpg"
+        src="/img/gallery/nail_img1.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img1.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img1.jpg")}
       />
       <img
-        src="/public/img/gallery/nail_img2.jpg"
+        src="/img/gallery/nail_img2.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img2.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img2.jpg")}
       />
       <img
-        src="/public/img/gallery/nail_img4.jpg"
+        src="/img/gallery/nail_img4.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img4.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img4.jpg")}
       />
 
       <img
-        src="/public/img/gallery/nail_img6.jpg"
+        src="/img/gallery/nail_img6.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img6.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img6.jpg")}
       />
       <img
-        src="/public/img/gallery/nail_img7.jpg"
+        src="/img/gallery/nail_img7.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img7.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img7.jpg")}
       />
       <img
-        src="/public/img/gallery/nail_img9.jpg"
+        src="/img/gallery/nail_img9.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img9.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img9.jpg")}
       />
       <img
-        src="/public/img/gallery/nail_img10.jpg"
+        src="/img/gallery/nail_img10.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img10.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img10.jpg")}
       />
       <img
-        src="/public/img/gallery/nail_img11.jpg"
+        src="/img/gallery/nail_img11.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img11.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img11.jpg")}
       />
       <img
-        src="/public/img/gallery/nail_img12.jpg"
+        src="/img/gallery/nail_img12.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img12.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img12.jpg")}
       />
       <img
-        src="/public/img/gallery/nail_img13.jpg"
+        src="/img/gallery/nail_img13.jpg"
         className={styles.galler_img}
-        onClick={() => openModal("/public/img/gallery/nail_img13.jpg")}
+        onClick={() => openModal("/img/gallery/nail_img13.jpg")}
       />
       <GalleryModal
         modalIsOpen={modalIsOpen}
