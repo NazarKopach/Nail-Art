@@ -20,6 +20,9 @@ const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
 const CalendarPage = lazy(() => import("./pages/CalendarPage/CalendarPage"));
+const ReservationPage = lazy(() =>
+  import("./pages/ReservationPage/ReservationPage")
+);
 
 function App() {
   const isRefreshing = useSelector(selectUserIsRefreshing);
@@ -55,6 +58,7 @@ function App() {
             <Route path="/booking" element={<BookingPage />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/catalog" element={<CatalogPage />} />
+            <Route path="/reservation" element={<ReservationPage />} />
             <Route path="/admin-calendar" element={<CalendarPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>

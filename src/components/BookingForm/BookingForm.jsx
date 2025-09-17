@@ -10,16 +10,18 @@ import {
   fetchReservedBookings,
 } from "../../redux/booking/operations";
 import { toast } from "react-toastify";
+import DodatekModal from "../DodatekModal/DodatekModal";
+import { customStyles, customStylesDodatek } from "../modalStyles/modalStyles";
 dayjs.extend(isoWeek);
 
 const BookingForm = ({ type, price, closeModal }) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [option, setOption] = useState("");
   const [optionPrice, setOptionPrice] = useState("");
   const [value, setValue] = useState(price);
   const [services, setServices] = useState(type);
-  const [activeDodatek, setActiveDodatek] = useState(false);
   const [activeTime, setActiveTime] = useState(null);
   const [activeDate, setActiveDate] = useState("");
   const [currentDate, setCurrentDate] = useState(dayjs());
@@ -76,6 +78,10 @@ const BookingForm = ({ type, price, closeModal }) => {
       return item.time;
     }
   });
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   const blockPrevData = () => {
     const now = dayjs();
@@ -140,30 +146,8 @@ const BookingForm = ({ type, price, closeModal }) => {
         )}
       </div>
 
-      <button
-        className={styles.booking_add_option}
-        onClick={() => setActiveDodatek(!activeDodatek)}
-      >
+      <button className={styles.booking_add_option} onClick={() => openModal()}>
         dodaj dodatek+
-        <ul
-          className={`${styles.custom_select_list} ${
-            activeDodatek ? styles.active_custom_select_list : ""
-          }`}
-        >
-          {dodatek.map((item) => (
-            <li
-              className={styles.custom_select_item}
-              key={item.id}
-              onClick={() => {
-                setOption(item.value);
-                setOptionPrice(item.price);
-                setActiveDodatek(false);
-              }}
-            >
-              {`${item.value} ${item.price} zl`}
-            </li>
-          ))}
-        </ul>
       </button>
       {date.length !== 0 && (
         <div className={styles.booking_calendar_time}>
@@ -186,6 +170,11 @@ const BookingForm = ({ type, price, closeModal }) => {
       <button type="submit" onClick={() => handleSubmit()}>
         booking
       </button>
+      <DodatekModal
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        customStyles={customStylesDodatek}
+      />
     </div>
   );
 };

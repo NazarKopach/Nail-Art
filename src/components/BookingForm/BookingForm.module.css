@@ -81,37 +81,6 @@
   padding: 0;
 }
 
-.custom_select_list {
-  position: absolute;
-  bottom: 100%;
-  right: -25%;
-  overflow-y: auto;
-  border: 1px solid #808080;
-  border-radius: 5px;
-  background: white;
-  z-index: 1000;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  opacity: 0;
-}
-
-.active_custom_select_list {
-  opacity: 1;
-}
-
-/* .custom_select_list.open {
-  opacity: 1;
-} */
-
-.custom_select_item {
-  width: 200px;
-  padding: 5px;
-  border: 1xp solid black;
-  cursor: pointer;
-  background-color: white;
-}
-
 .disabled_day {
   color: #aaa;
   pointer-events: none; /* щоб не можна було клікнути */
