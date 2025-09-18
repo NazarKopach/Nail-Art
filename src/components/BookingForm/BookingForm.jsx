@@ -11,7 +11,7 @@ import {
 } from "../../redux/booking/operations";
 import { toast } from "react-toastify";
 import DodatekModal from "../DodatekModal/DodatekModal";
-import { customStyles, customStylesDodatek } from "../modalStyles/modalStyles";
+import { customStyles } from "../modalStyles/modalStyles";
 dayjs.extend(isoWeek);
 
 const BookingForm = ({ type, price, closeModal }) => {
@@ -173,7 +173,7 @@ const BookingForm = ({ type, price, closeModal }) => {
       <DodatekModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
-        customStyles={customStylesDodatek}
+        customStyles={customStyles}
       />
     </div>
   );

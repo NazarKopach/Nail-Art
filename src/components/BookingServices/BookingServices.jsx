@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./BookingServices.module.css";
 import { customStyles } from "../modalStyles/modalStyles";
 import UpdateMenu from "../UpdateMenu/UpdateMenu";
+import { Link } from "react-router-dom";
 
 const BookingServices = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -65,12 +66,8 @@ const BookingServices = () => {
               <button className={styles.booking_services_btn_info}>...</button>
             </div>
             <div>
-              <button
-                className={styles.booking_services_btn}
-                type="button"
-                onClick={() => openModal(service.services, service.price)}
-              >
-                reserv
+              <button className={styles.booking_services_btn}>
+                <Link to={"/reservation"}>Reserv</Link>
               </button>
             </div>
           </li>

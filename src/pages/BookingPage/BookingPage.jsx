@@ -1,6 +1,4 @@
-import BookingForm from "../../components/BookingForm/BookingForm";
 import BookingServices from "../../components/BookingServices/BookingServices";
-import Price from "../../components/Price/Price";
 import styles from "./BookingPage.module.css";
 
 const BookingPage = () => {
