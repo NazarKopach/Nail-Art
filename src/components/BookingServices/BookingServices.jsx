@@ -67,7 +67,9 @@ const BookingServices = () => {
             </div>
             <div>
               <button className={styles.booking_services_btn}>
-                <Link to={"/reservation"}>Reserv</Link>
+                <Link type={selectType} price={selectPrice} to={"/reservation"}>
+                  Reserv
+                </Link>
               </button>
             </div>
           </li>
@@ -77,8 +79,6 @@ const BookingServices = () => {
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         customStyles={customStyles}
-        type={selectType}
-        price={selectPrice}
       />
     </div>
   );

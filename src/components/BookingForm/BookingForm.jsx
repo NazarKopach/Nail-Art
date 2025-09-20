@@ -12,9 +12,12 @@ import {
 import { toast } from "react-toastify";
 import DodatekModal from "../DodatekModal/DodatekModal";
 import { customStyles } from "../modalStyles/modalStyles";
+import { useLocation } from "react-router-dom";
 dayjs.extend(isoWeek);
 
-const BookingForm = ({ type, price, closeModal }) => {
+const BookingForm = ({ closeModal }) => {
+  const location = useLocation();
+  const { price, type } = location.state || {};
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
