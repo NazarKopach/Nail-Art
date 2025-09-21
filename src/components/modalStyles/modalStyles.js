@@ -50,6 +50,7 @@ export const customStylesGallery = {
     left: "50%",
     right: "auto",
     bottom: "auto",
+    width: "100%",
     maxWidth: "500px",
     transform: "translate(-50%,-50%)",
     border: "none",

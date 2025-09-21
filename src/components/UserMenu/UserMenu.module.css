@@ -43,6 +43,22 @@
   transform: translate(-50%, -50%);
 }
 
+.ReactModal__Content {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.ReactModal__Content--after-open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.ReactModal__Content--before-close {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
 @media (min-width: 768px) {
   .mobile_icon {
     display: none;

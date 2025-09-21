@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { customStylesGallery } from "../modalStyles/modalStyles";
 import styles from "./Gallery.module.css";
 import GalleryModal from "../GalleryModal/GalleryModal";
+import gsap from "gsap";
 
 const Gallery = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [src, setSrc] = useState("");
+  const galleryRef = useRef(null);
 
   function openModal(src) {
     setSrc(src);
@@ -16,8 +18,22 @@ const Gallery = () => {
     setIsOpen(false);
   }
 
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.from(`.${styles.galler_img}`, {
+        opacity: 0,
+        y: -50,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+    }, galleryRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className={styles.gallery_wrapper}>
+    <div className={styles.gallery_wrapper} ref={galleryRef}>
       <img
         src="/img/gallery/nail_img1.jpg"
         className={styles.galler_img}

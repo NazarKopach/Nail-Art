@@ -1,8 +1,28 @@
 import Footer from "../../components/Footer/Footer";
 import styles from "./HomePage.module.css";
 import { Link } from "react-router-dom";
+import { useLayoutEffect } from "react";
+import gsap from "gsap";
 
 const HomePage = () => {
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      const tl = gsap.timeline();
+      tl.from(`.${styles.home_page_title}`, {
+        opacity: 0,
+        y: -100,
+        duration: 1,
+        ease: "power3.out",
+      }).from(
+        `.${styles.home_page_button}`,
+        { opacity: 0, y: 50, duration: 1, ease: "power3.out" },
+        "-=0.5"
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div>
       <div className={styles.home_page_container}>

@@ -79,6 +79,9 @@ const UserMenu = () => {
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         customStyles={customStyles}
+        className={styles.ReactModal__Content}
+        overlayClassName={styles.ReactModal__Overlay}
+        closeTimeoutMS={500} // збігається з transition
       />
     </div>
   );

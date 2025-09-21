@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { userBookings } from "../../redux/booking/selectors";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 // import { apiGetCurrentUserInfo } from "../../redux/auth/operations";
 // import { selectUserInfo } from "../../redux/auth/selectors";
 import {
@@ -11,6 +11,7 @@ import {
 import styles from "./CatalogItem.module.css";
 import UpdateMenu from "../UpdateMenu/UpdateMenu";
 import { customStyles } from "../modalStyles/modalStyles";
+import gsap from "gsap";
 
 const CatalogItem = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,20 @@ const CatalogItem = () => {
     await dispatch(deleteBooking(id)).unwrap();
     dispatch(fetchUserBookings());
   };
+
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.from(`.${styles.catalog_item}`, {
+        opacity: 0,
+        y: -50,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   function openModal(id, type) {
     setSelectedBookingId(id);
