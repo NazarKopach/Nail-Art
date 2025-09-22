@@ -29,3 +29,19 @@
   align-items: center;
   margin-top: 100px;
 }
+
+.ReactModal__Content {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.ReactModal__Content--after-open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.ReactModal__Content--before-close {
+  transform: translateX(100%);
+  opacity: 0;
+}
