@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { Icon } from "../Icon/Icon";
 import Navigation from "../Navigation/Navigation";
 
-const MobileMenu = ({ modalIsOpen, closeModal, customStyles }) => {
+const MobileMenu = ({ modalIsOpen, closeModal }) => {
   const dispatch = useDispatch();
 
   const onLogout = () => {
@@ -34,8 +34,18 @@ const MobileMenu = ({ modalIsOpen, closeModal, customStyles }) => {
     <ReactModal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      style={customStyles}
       ariaHideApp={false}
+      closeTimeoutMS={300} // <- має відповідати transition (300ms нижче)
+      overlayClassName={{
+        base: styles.overlayBase,
+        afterOpen: styles.overlayAfterOpen,
+        beforeClose: styles.overlayBeforeClose,
+      }}
+      className={{
+        base: styles.contentBase,
+        afterOpen: styles.contentAfterOpen,
+        beforeClose: styles.contentBeforeClose,
+      }}
     >
       <div className={styles.mobile_modal_icon_div}>
         <Icon id="icon-x" width="28" height="28" onClick={closeModal} />

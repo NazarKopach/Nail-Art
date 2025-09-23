@@ -22,7 +22,7 @@ export const customStyles = {
 export const customStylesDodatek = {
   overlay: {
     backgroundColor: "rgba(20, 20, 20, 0.6)",
-    zIndex: 9999,
+    zIndex: 1000,
   },
   content: {
     top: "50%",

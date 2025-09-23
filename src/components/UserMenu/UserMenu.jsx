@@ -9,25 +9,6 @@ import MobileMenu from "../MobileMenu/MobileMenu.jsx";
 import styles from "./UserMenu.module.css";
 import { selectUserInfo } from "../../redux/auth/selectors.js";
 
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(20, 20, 20, 0.6)",
-    overflowX: "hidden",
-    zIndex: 1000,
-  },
-  content: {
-    top: "0",
-    left: "auto",
-    right: "0",
-    bottom: "0",
-    width: "50vw",
-    padding: "34px",
-    border: "none",
-    borderRadius: "0",
-    backgroundColor: "#808080",
-  },
-};
-
 const UserMenu = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUserInfo);
@@ -75,11 +56,7 @@ const UserMenu = () => {
         />
       </div>
 
-      <MobileMenu
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        customStyles={customStyles}
-      />
+      <MobileMenu modalIsOpen={modalIsOpen} closeModal={closeModal} />
     </div>
   );
 };

@@ -30,18 +30,40 @@
   margin-top: 100px;
 }
 
-.ReactModal__Content {
-  transform: translateX(100%);
-  opacity: 0;
-  transition: all 0.5s ease;
+/* Overlay (фон) */
+.overlayBase {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  background-color: rgba(20, 20, 20, 0); /* початково прозорий */
+  transition: background-color 300ms ease;
+  z-index: 1000;
+}
+.overlayAfterOpen {
+  background-color: rgba(20, 20, 20, 0.6); /* коли відкрито */
+}
+.overlayBeforeClose {
+  background-color: rgba(20, 20, 20, 0); /* під час закриття */
 }
 
-.ReactModal__Content--after-open {
-  transform: translateX(0);
-  opacity: 1;
+/* Контент (панель меню) */
+.contentBase {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  padding: 34px;
+  max-width: 420px;
+  height: 100%;
+  background-color: #808080;
+  transform: translateX(100%); /* схована за правим краєм */
+  transition: transform 300ms ease;
+  z-index: 1001;
+  overflow-y: auto;
+  /* видалити будь-які inline right/left які можуть перезаписати transform */
 }
-
-.ReactModal__Content--before-close {
-  transform: translateX(100%);
-  opacity: 0;
+.contentAfterOpen {
+  transform: translateX(0); /* виїхала в позицію */
+}
+.contentBeforeClose {
+  transform: translateX(100%); /* виїжджає назад */
 }
