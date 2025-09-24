@@ -15,8 +15,8 @@ const UserMenu = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(apiGetCurrentUserInfo());
-  }, [dispatch]);
+    if (!user) dispatch(apiGetCurrentUserInfo());
+  }, [dispatch, user]);
 
   function openModal() {
     setIsOpen(true);

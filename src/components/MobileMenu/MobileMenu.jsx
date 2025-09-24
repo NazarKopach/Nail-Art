@@ -35,7 +35,7 @@ const MobileMenu = ({ modalIsOpen, closeModal }) => {
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       ariaHideApp={false}
-      closeTimeoutMS={300} // <- має відповідати transition (300ms нижче)
+      closeTimeoutMS={300}
       overlayClassName={{
         base: styles.overlayBase,
         afterOpen: styles.overlayAfterOpen,
