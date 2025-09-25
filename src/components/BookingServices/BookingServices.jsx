@@ -2,10 +2,14 @@ import { useLayoutEffect, useState } from "react";
 import styles from "./BookingServices.module.css";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
+import { useDispatch } from "react-redux";
+import { setReservation } from "../../redux/reserv/slice";
 
 const BookingServices = () => {
   const [selectType, setSelectType] = useState("");
   const [selectPrice, setSelectPrice] = useState("");
+
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -54,6 +58,10 @@ const BookingServices = () => {
     },
   ];
 
+  const handleSave = () => {
+    dispatch(setReservation({ service: "manicure", price: 150 }));
+  };
+
   return (
     <div className={styles.booking_services_div}>
       <ul className={styles.booking_services_list}>
@@ -69,7 +77,7 @@ const BookingServices = () => {
             </div>
             <div>
               <button className={styles.booking_services_btn}>
-                <Link type={selectType} price={selectPrice} to={"/reservation"}>
+                <Link onClick={() => handleSave()} to={"/reservation"}>
                   Reserv
                 </Link>
               </button>

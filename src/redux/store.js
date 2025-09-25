@@ -1,6 +1,8 @@
 import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./auth/slice";
+import { bookingsReducer } from "./booking/slice";
+import { reservationReducer } from "./reserv/slice";
 
 import {
   persistStore,
@@ -12,7 +14,6 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import { bookingsReducer } from "./booking/slice";
 
 const authConfig = {
   key: "auth",
@@ -24,6 +25,7 @@ export const store = configureStore({
   reducer: {
     auth: persistReducer(authConfig, authReducer),
     bookings: bookingsReducer,
+    reservation: reservationReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

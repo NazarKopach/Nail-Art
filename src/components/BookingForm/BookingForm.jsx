@@ -34,6 +34,8 @@ const BookingForm = () => {
   const daysInMonth = endOfMonth.date();
 
   const reservations = useSelector(reservedDate);
+  const reserv = useSelector((state) => state.reservation);
+  console.log(reserv);
 
   const dodatek = [
     { id: "1", value: "Zdobienia", price: "10" },
