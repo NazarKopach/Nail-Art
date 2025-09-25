@@ -1,8 +1,5 @@
-import styles from "./BookingForm.module.css";
 import { useEffect, useState } from "react";
-import isoWeek from "dayjs/plugin/isoWeek";
-import dayjs from "dayjs";
-import "dayjs/locale/pl"; // імпортуємо польську локалізацію
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { reservedDate } from "../../redux/booking/selectors";
 import {
@@ -10,12 +7,15 @@ import {
   fetchReservedBookings,
 } from "../../redux/booking/operations";
 import { toast } from "react-toastify";
+
 import DodatekModal from "../DodatekModal/DodatekModal";
-import { customStyles } from "../modalStyles/modalStyles";
-import { useLocation } from "react-router-dom";
+import styles from "./BookingForm.module.css";
+import dayjs from "dayjs";
+import isoWeek from "dayjs/plugin/isoWeek";
+import "dayjs/locale/pl"; // імпортуємо польську локалізацію
 dayjs.extend(isoWeek);
 
-const BookingForm = ({ closeModal }) => {
+const BookingForm = () => {
   const location = useLocation();
   const { price, type } = location.state || {};
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -53,6 +53,14 @@ const BookingForm = ({ closeModal }) => {
     setValue(Number(price) + (optionPrice ? Number(optionPrice) : 0));
   }, [dispatch, optionPrice, price]);
 
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
   const handleSubmit = async () => {
     const data = {
       serviceType: type,
@@ -70,21 +78,17 @@ const BookingForm = ({ closeModal }) => {
     }
   };
 
-  const resDates = reservations.map((item) => {
-    if (date.includes(item.date)) {
-      return item.date;
-    }
-  });
+  // const resDates = reservations.map((item) => {
+  //   if (date.includes(item.date)) {
+  //     return item.date;
+  //   }
+  // });
 
   const resTime = reservations.map((item) => {
     if (date.includes(item.date)) {
       return item.time;
     }
   });
-
-  function openModal() {
-    setIsOpen(true);
-  }
 
   const blockPrevData = () => {
     const now = dayjs();
@@ -173,11 +177,7 @@ const BookingForm = ({ closeModal }) => {
       <button type="submit" onClick={() => handleSubmit()}>
         booking
       </button>
-      <DodatekModal
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        customStyles={customStyles}
-      />
+      <DodatekModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
     </div>
   );
 };

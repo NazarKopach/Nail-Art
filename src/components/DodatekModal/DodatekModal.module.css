@@ -1,0 +1,5 @@
+.dodatek_mobile_icon_div {
+  display: flex;
+  flex-direction: row-reverse;
+  cursor: pointer;
+}
