@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   services: "",
   price: null,
+  src: "",
 };
 
 const reservationSlice = createSlice({
@@ -12,10 +13,12 @@ const reservationSlice = createSlice({
     setReservation: (state, action) => {
       state.services = action.payload.services;
       state.price = action.payload.price;
+      state.src = action.payload.src;
     },
     clearReservation: (state) => {
       state.services = "";
       state.price = null;
+      state.src = "";
     },
   },
 });

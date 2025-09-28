@@ -24,7 +24,6 @@ const BookingForm = () => {
   const [option, setOption] = useState("");
   const [optionPrice, setOptionPrice] = useState("");
   const [value, setValue] = useState(price);
-  const [services, setServices] = useState(type);
   const [activeTime, setActiveTime] = useState(null);
   const [activeDate, setActiveDate] = useState("");
   const [currentDate, setCurrentDate] = useState(dayjs());
@@ -35,14 +34,6 @@ const BookingForm = () => {
 
   const reservations = useSelector(reservedDate);
   const reserv = useSelector((state) => state.reservation);
-  console.log(reserv);
-
-  const dodatek = [
-    { id: "1", value: "Zdobienia", price: "10" },
-    { id: "2", value: "Przedluzenie 1 paznokcia", price: "10" },
-    { id: "3", value: "French", price: "30" },
-    { id: "4", value: "Usuwanie materialu", price: "10" },
-  ];
 
   const days = [];
   for (let i = 1; i < startDay; i++) days.push(null);
@@ -65,7 +56,7 @@ const BookingForm = () => {
 
   const handleSubmit = async () => {
     const data = {
-      serviceType: type,
+      serviceType: reserv.services,
       dodatek: option,
       time: time,
       date: date,
@@ -138,7 +129,8 @@ const BookingForm = () => {
       </div>
       <div className={styles.booking_calendar_service_div}>
         <p className={styles.booking_calendar_service}>
-          {`${services} ${value} zl`}{" "}
+          <img src={reserv.src} width="40" height="40" />{" "}
+          {`${reserv.services} ${reserv.price} zl`}{" "}
         </p>
         {option && (
           <p className={styles.booking_calendar_service}>

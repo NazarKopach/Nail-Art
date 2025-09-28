@@ -3,3 +3,23 @@
   flex-direction: row-reverse;
   cursor: pointer;
 }
+
+.dodatek_modal_list {
+}
+
+.dodatek_modal_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.dodatek_modal_price_div {
+  display: flex;
+
+  align-items: center;
+  gap: 5px;
+}

@@ -58,8 +58,8 @@ const BookingServices = () => {
     },
   ];
 
-  const handleSave = () => {
-    dispatch(setReservation({ service: "manicure", price: 150 }));
+  const handleSave = (services, price, src) => {
+    dispatch(setReservation({ services, price, src }));
   };
 
   return (
@@ -77,7 +77,12 @@ const BookingServices = () => {
             </div>
             <div>
               <button className={styles.booking_services_btn}>
-                <Link onClick={() => handleSave()} to={"/reservation"}>
+                <Link
+                  onClick={() =>
+                    handleSave(service.services, service.price, service.src)
+                  }
+                  to={"/reservation"}
+                >
                   Reserv
                 </Link>
               </button>
