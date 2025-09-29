@@ -26,6 +26,7 @@ export const store = configureStore({
     auth: persistReducer(authConfig, authReducer),
     bookings: bookingsReducer,
     reservation: reservationReducer,
+    reservationDodatek: reservationReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
