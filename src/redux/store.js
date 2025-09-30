@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./auth/slice";
 import { bookingsReducer } from "./booking/slice";
 import { reservationReducer } from "./reserv/slice";
+import { reservationDodatekReducer } from "./reservDodatek/slice";
 
 import {
   persistStore,
@@ -26,7 +27,7 @@ export const store = configureStore({
     auth: persistReducer(authConfig, authReducer),
     bookings: bookingsReducer,
     reservation: reservationReducer,
-    reservationDodatek: reservationReducer,
+    reservationDodatek: reservationDodatekReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

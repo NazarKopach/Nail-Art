@@ -13,6 +13,8 @@ import styles from "./BookingForm.module.css";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
 import "dayjs/locale/pl"; // імпортуємо польську локалізацію
+import { clearReservationDodatek } from "../../redux/reservDodatek/slice";
+import { reservDodatekService } from "../../redux/reservDodatek/selector";
 dayjs.extend(isoWeek);
 
 const BookingForm = () => {
@@ -34,6 +36,9 @@ const BookingForm = () => {
 
   const reservations = useSelector(reservedDate);
   const reserv = useSelector((state) => state.reservation);
+  const reservDodatek = useSelector((state) => state.reservationDodatek);
+  const rev = reservDodatek.map((item) => item.servicesDodatek);
+  console.log(rev);
 
   const days = [];
   for (let i = 1; i < startDay; i++) days.push(null);
@@ -57,7 +62,7 @@ const BookingForm = () => {
   const handleSubmit = async () => {
     const data = {
       serviceType: reserv.services,
-      dodatek: option,
+      dodatek: rev.toString(),
       time: time,
       date: date,
     };
@@ -132,19 +137,23 @@ const BookingForm = () => {
           <img src={reserv.src} width="40" height="40" />{" "}
           {`${reserv.services} ${reserv.price} zl`}{" "}
         </p>
-        {option && (
-          <p className={styles.booking_calendar_service}>
-            {option} {optionPrice} zl{" "}
+        {reservDodatek.map((dodatek) => (
+          <p
+            key={dodatek.servicesDodatek}
+            className={styles.booking_calendar_service}
+          >
+            <img src={dodatek.srcDodatek} width="40" height="40" />
+            {dodatek.servicesDodatek} {dodatek.priceDodatek} zl{" "}
             <button
               className={styles.booking_calendar_option_delete}
-              onClick={() => {
-                setOption(""), setOptionPrice("");
-              }}
+              onClick={() =>
+                dispatch(clearReservationDodatek(dodatek.idDodatek))
+              }
             >
               del
             </button>
           </p>
-        )}
+        ))}
       </div>
 
       <button className={styles.booking_add_option} onClick={() => openModal()}>
