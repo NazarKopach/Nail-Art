@@ -62,10 +62,11 @@ const BookingForm = () => {
   const handleSubmit = async () => {
     const data = {
       serviceType: reserv.services,
-      dodatek: rev.toString(),
+      dodatek: rev,
       time: time,
       date: date,
     };
+    console.log(data);
     try {
       await dispatch(addBookings(data)).unwrap();
       toast.success("Successfuly add booking!");
