@@ -14,7 +14,6 @@ import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
 import "dayjs/locale/pl"; // імпортуємо польську локалізацію
 import { clearReservationDodatek } from "../../redux/reservDodatek/slice";
-import { reservDodatekService } from "../../redux/reservDodatek/selector";
 dayjs.extend(isoWeek);
 
 const BookingForm = () => {
@@ -23,7 +22,6 @@ const BookingForm = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [option, setOption] = useState("");
   const [optionPrice, setOptionPrice] = useState("");
   const [value, setValue] = useState(price);
   const [activeTime, setActiveTime] = useState(null);

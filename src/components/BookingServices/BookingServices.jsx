@@ -4,12 +4,22 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useDispatch } from "react-redux";
 import { setReservation } from "../../redux/reserv/slice";
+import { services } from "../../utils/const";
+import InfoModal from "../InfoModal/InfoModal";
+import { customStylesDodatek } from "../modalStyles/modalStyles";
 
 const BookingServices = () => {
-  const [selectType, setSelectType] = useState("");
-  const [selectPrice, setSelectPrice] = useState("");
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const dispatch = useDispatch();
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -24,39 +34,6 @@ const BookingServices = () => {
 
     return () => ctx.revert();
   }, []);
-
-  const services = [
-    {
-      services: "Manicure hybrydowy",
-      price: "150",
-      src: "./img/gallery/nail_img1.jpg",
-    },
-    {
-      services: "Zel(krotki)",
-      price: "170",
-      src: "./img/gallery/nail_img2.jpg",
-    },
-    {
-      services: "Zel(srednia dlugosc od 1)",
-      price: "180",
-      src: "./img/gallery/nail_img4.jpg",
-    },
-    {
-      services: "Zel(dlugie od 2)",
-      price: "190",
-      src: "./img/gallery/nail_img6.jpg",
-    },
-    {
-      services: "Przedluzanie (do 3)",
-      price: "240",
-      src: "./img/gallery/nail_img7.jpg",
-    },
-    {
-      services: "Przedluzanie (od 3)",
-      price: "260",
-      src: "./img/gallery/nail_img9.jpg",
-    },
-  ];
 
   const handleSave = (services, price, src) => {
     dispatch(setReservation({ services, price, src }));
@@ -73,7 +50,12 @@ const BookingServices = () => {
                 <p>{service.price} zl</p>
               </div>
               <img src={service.src} width="40" />
-              <button className={styles.booking_services_btn_info}>...</button>
+              <button
+                className={styles.booking_services_btn_info}
+                onClick={() => openModal()}
+              >
+                ...
+              </button>
             </div>
             <div>
               <button className={styles.booking_services_btn}>
@@ -90,6 +72,11 @@ const BookingServices = () => {
           </li>
         ))}
       </ul>
+      <InfoModal
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        customStyles={customStylesDodatek}
+      />
     </div>
   );
 };

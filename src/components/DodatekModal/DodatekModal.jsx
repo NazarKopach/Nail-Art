@@ -4,36 +4,10 @@ import { Icon } from "../Icon/Icon";
 import { customStylesDodatek } from "../modalStyles/modalStyles";
 import { useDispatch } from "react-redux";
 import { setReservationDodatek } from "../../redux/reservDodatek/slice";
+import { dodatekServices } from "../../utils/const";
 
 const DodatekModal = ({ modalIsOpen, closeModal }) => {
   const dispatch = useDispatch();
-
-  const dodatekServices = [
-    {
-      idDodatek: 1,
-      dodatekServices: "Zdobienia",
-      dodatekPrice: "10",
-      dodatekSrc: "./img/gallery/nail_img1.jpg",
-    },
-    {
-      idDodatek: 2,
-      dodatekServices: "Przedluzenie 1 paznokcia",
-      dodatekPrice: "10",
-      dodatekSrc: "./img/gallery/nail_img2.jpg",
-    },
-    {
-      idDodatek: 3,
-      dodatekServices: "French",
-      dodatekPrice: "30",
-      dodatekSrc: "./img/gallery/nail_img4.jpg",
-    },
-    {
-      idDodatek: 4,
-      dodatekServices: "Usuwanie materialu",
-      dodatekPrice: "10",
-      dodatekSrc: "./img/gallery/nail_img6.jpg",
-    },
-  ];
 
   const handleSave = (idDodatek, servicesDodatek, priceDodatek, srcDodatek) => {
     dispatch(
