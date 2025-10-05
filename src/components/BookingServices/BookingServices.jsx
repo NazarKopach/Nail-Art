@@ -10,6 +10,7 @@ import { customStylesDodatek } from "../modalStyles/modalStyles";
 
 const BookingServices = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [servicesText, setServicesText] = useState("");
 
   const dispatch = useDispatch();
 
@@ -17,7 +18,8 @@ const BookingServices = () => {
     setIsOpen(false);
   }
 
-  function openModal() {
+  function openModal(id) {
+    setServicesText(id);
     setIsOpen(true);
   }
 
@@ -44,30 +46,29 @@ const BookingServices = () => {
       <ul className={styles.booking_services_list}>
         {services.map((service) => (
           <li className={styles.booking_services_item} key={service.services}>
-            <div>
+            <div className={styles.booking_services_item_wrapper}>
+              <img src={service.src} width="40" />
               <div className={styles.booking_services_price_div}>
                 <p>{service.services}</p>
                 <p>{service.price} zl</p>
+                <button
+                  className={styles.booking_services_btn_info}
+                  onClick={() => openModal(service.text)}
+                >
+                  info
+                </button>
               </div>
-              <img src={service.src} width="40" />
-              <button
-                className={styles.booking_services_btn_info}
-                onClick={() => openModal()}
-              >
-                ...
-              </button>
             </div>
             <div>
-              <button className={styles.booking_services_btn}>
-                <Link
-                  onClick={() =>
-                    handleSave(service.services, service.price, service.src)
-                  }
-                  to={"/reservation"}
-                >
-                  Reserv
-                </Link>
-              </button>
+              <Link
+                className={styles.booking_services_btn}
+                onClick={() =>
+                  handleSave(service.services, service.price, service.src)
+                }
+                to={"/reservation"}
+              >
+                Reserv
+              </Link>
             </div>
           </li>
         ))}
@@ -76,6 +77,7 @@ const BookingServices = () => {
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         customStyles={customStylesDodatek}
+        text={servicesText}
       />
     </div>
   );

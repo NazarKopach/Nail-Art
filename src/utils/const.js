@@ -3,31 +3,37 @@ export const services = [
     services: "Manicure hybrydowy",
     price: "150",
     src: "./img/gallery/nail_img1.jpg",
+    text: "Manicure hybrydowy",
   },
   {
     services: "Zel(krotki)",
     price: "170",
     src: "./img/gallery/nail_img2.jpg",
+    text: "Zel(krotki)",
   },
   {
     services: "Zel(srednia dlugosc od 1)",
     price: "180",
     src: "./img/gallery/nail_img4.jpg",
+    text: "Zel(srednia dlugosc od 1)",
   },
   {
     services: "Zel(dlugie od 2)",
     price: "190",
     src: "./img/gallery/nail_img6.jpg",
+    text: "Zel(dlugie od 2)",
   },
   {
     services: "Przedluzanie (do 3)",
     price: "240",
     src: "./img/gallery/nail_img7.jpg",
+    text: "Przedluzanie (do 3)",
   },
   {
     services: "Przedluzanie (od 3)",
     price: "260",
     src: "./img/gallery/nail_img9.jpg",
+    text: "Przedluzanie (od 3)",
   },
 ];
 
@@ -57,5 +63,3 @@ export const dodatekServices = [
     dodatekSrc: "./img/gallery/nail_img6.jpg",
   },
 ];
-
-export const infoText = [{ id: 1, text1: "text1" }];

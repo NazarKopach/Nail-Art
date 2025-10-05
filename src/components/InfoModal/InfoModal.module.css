@@ -1,26 +1,3 @@
-.dodatek_mobile_icon_div {
-  display: flex;
-  flex-direction: row-reverse;
-  cursor: pointer;
-}
-
-.dodatek_modal_item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  border-radius: 5px;
-  padding: 5px;
-  margin-bottom: 5px;
-}
-
-.dodatek_modal_price_div {
-  display: flex;
-
-  align-items: center;
-  gap: 5px;
-}
-
 /* Оверлей */
 .overlayBase {
   position: fixed;
@@ -43,9 +20,9 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.7); /* трохи зменшена */
   width: 75%;
-  max-width: 500px;
+  max-width: 600px;
   background-color: #808080;
-  padding: 20px;
+  padding: 34px;
   border-radius: 8px;
   transition: transform 300ms ease, opacity 300ms ease;
   opacity: 0;

@@ -26,8 +26,18 @@ const DodatekModal = ({ modalIsOpen, closeModal }) => {
       <ReactModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStylesDodatek}
+        closeTimeoutMS={300}
         ariaHideApp={false}
+        overlayClassName={{
+          base: styles.overlayBase,
+          afterOpen: styles.overlayAfterOpen,
+          beforeClose: styles.overlayBeforeClose,
+        }}
+        className={{
+          base: styles.contentBase,
+          afterOpen: styles.contentAfterOpen,
+          beforeClose: styles.contentBeforeClose,
+        }}
       >
         <div className={styles.dodatek_mobile_icon_div}>
           <Icon id="icon-x" width="28" height="28" onClick={closeModal} />

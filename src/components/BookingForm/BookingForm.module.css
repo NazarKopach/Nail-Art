@@ -61,6 +61,7 @@
 .booking_calendar_service {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   border: 1px solid transparent;
   border-radius: 5px;

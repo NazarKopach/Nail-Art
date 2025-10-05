@@ -1,18 +1,26 @@
 import ReactModal from "react-modal";
-import { infoText } from "../../utils/const";
+import styles from "./InfoModal.module.css";
 
-const InfoModal = ({ modalIsOpen, closeModal, customStyles }) => {
+const InfoModal = ({ modalIsOpen, closeModal, id, text }) => {
   return (
     <div>
       <ReactModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStyles}
+        closeTimeoutMS={300}
         ariaHideApp={false}
+        overlayClassName={{
+          base: styles.overlayBase,
+          afterOpen: styles.overlayAfterOpen,
+          beforeClose: styles.overlayBeforeClose,
+        }}
+        className={{
+          base: styles.contentBase,
+          afterOpen: styles.contentAfterOpen,
+          beforeClose: styles.contentBeforeClose,
+        }}
       >
-        {infoText.map((item) => (
-          <p key={item.id}> {item.text1}</p>
-        ))}
+        <p key={id}> {text}</p>
       </ReactModal>
     </div>
   );
