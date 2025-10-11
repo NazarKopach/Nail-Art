@@ -16,6 +16,8 @@ import gsap from "gsap";
 const CatalogItem = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(userBookings);
+  console.log(bookings);
+
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState("");
   const [selectType, setSelectType] = useState("");
@@ -71,14 +73,15 @@ const CatalogItem = () => {
                     {booking.serviceType}
                   </span>
                 </p>
-                {booking.dodatek !== "" && (
-                  <p className={styles.catalog_item_title}>
-                    Dodatek:{" "}
-                    <span className={styles.catalog_item_title_span}>
-                      {booking.dodatek}
-                    </span>
-                  </p>
-                )}
+                {booking.dodatek.length !== 0 &&
+                  booking.dodatek.map((item) => (
+                    <p className={styles.catalog_item_title}>
+                      Dodatek:{" "}
+                      <span className={styles.catalog_item_title_span}>
+                        {item}
+                      </span>
+                    </p>
+                  ))}
                 <p className={styles.catalog_item_title}>
                   Data:{" "}
                   <span className={styles.catalog_item_title_span}>

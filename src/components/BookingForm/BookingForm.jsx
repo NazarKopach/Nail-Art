@@ -35,8 +35,7 @@ const BookingForm = () => {
   const reservations = useSelector(reservedDate);
   const reserv = useSelector((state) => state.reservation);
   const reservDodatek = useSelector((state) => state.reservationDodatek);
-  const rev = reservDodatek.map((item) => item.servicesDodatek);
-  console.log(rev);
+  const reservDodatekItem = reservDodatek.map((item) => item.servicesDodatek);
 
   const days = [];
   for (let i = 1; i < startDay; i++) days.push(null);
@@ -60,16 +59,13 @@ const BookingForm = () => {
   const handleSubmit = async () => {
     const data = {
       serviceType: reserv.services,
-      dodatek: rev,
+      dodatek: reservDodatekItem,
       time: time,
       date: date,
     };
-    console.log(data);
     try {
       await dispatch(addBookings(data)).unwrap();
       toast.success("Successfuly add booking!");
-
-      closeModal();
     } catch (err) {
       toast.error(err.message || "Something went wrong...");
     }
