@@ -5,6 +5,7 @@ import { reservedDate } from "../../redux/booking/selectors";
 import {
   addBookings,
   fetchReservedBookings,
+  fetchUserBookings,
 } from "../../redux/booking/operations";
 import { toast } from "react-toastify";
 
@@ -13,7 +14,10 @@ import styles from "./BookingForm.module.css";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
 import "dayjs/locale/pl"; // імпортуємо польську локалізацію
-import { clearReservationDodatek } from "../../redux/reservDodatek/slice";
+import {
+  clearAllReservationDodatek,
+  clearReservationDodatek,
+} from "../../redux/reservDodatek/slice";
 dayjs.extend(isoWeek);
 
 const BookingForm = () => {
@@ -66,6 +70,8 @@ const BookingForm = () => {
     try {
       await dispatch(addBookings(data)).unwrap();
       toast.success("Successfuly add booking!");
+      dispatch(fetchUserBookings());
+      dispatch(clearAllReservationDodatek());
     } catch (err) {
       toast.error(err.message || "Something went wrong...");
     }

@@ -73,8 +73,9 @@ const CatalogItem = () => {
                     {booking.serviceType}
                   </span>
                 </p>
-                {booking.dodatek.length !== 0 &&
-                  booking.dodatek.map((item) => (
+                {booking.dodatek
+                  .filter((item) => item.trim() !== "")
+                  .map((item) => (
                     <p className={styles.catalog_item_title}>
                       Dodatek:{" "}
                       <span className={styles.catalog_item_title_span}>

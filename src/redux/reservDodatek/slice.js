@@ -23,9 +23,16 @@ const reservationDodatekSlice = createSlice({
     clearReservationDodatek: (state, action) => {
       return state.filter((item) => item.idDodatek !== action.payload);
     },
+    clearAllReservationDodatek: (state) => {
+      return [];
+    },
   },
 });
 
-export const { setReservationDodatek, clearReservationDodatek } =
-  reservationDodatekSlice.actions;
+export const {
+  setReservationDodatek,
+  clearReservationDodatek,
+  clearAllReservationDodatek,
+} = reservationDodatekSlice.actions;
+
 export const reservationDodatekReducer = reservationDodatekSlice.reducer;
