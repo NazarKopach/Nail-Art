@@ -1,26 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { userBookings } from "../../redux/booking/selectors";
-import { useEffect, useLayoutEffect, useState } from "react";
-// import { apiGetCurrentUserInfo } from "../../redux/auth/operations";
-// import { selectUserInfo } from "../../redux/auth/selectors";
+import { useEffect, useLayoutEffect } from "react";
 import {
   deleteBooking,
   fetchUserBookings,
   patchBooking,
 } from "../../redux/booking/operations";
 import styles from "./CatalogItem.module.css";
-import UpdateMenu from "../UpdateMenu/UpdateMenu";
-import { customStyles } from "../modalStyles/modalStyles";
 import gsap from "gsap";
+import { Link } from "react-router-dom";
 
 const CatalogItem = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(userBookings);
-  console.log(bookings);
-
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectedBookingId, setSelectedBookingId] = useState("");
-  const [selectType, setSelectType] = useState("");
 
   useEffect(() => {
     dispatch(fetchUserBookings());
@@ -49,17 +41,6 @@ const CatalogItem = () => {
     return () => ctx.revert();
   }, []);
 
-  function openModal(id, type) {
-    setSelectedBookingId(id);
-    setSelectType(type);
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-    setSelectedBookingId(null);
-  }
-
   return (
     <div className={styles.catalog_item_div}>
       <ul className={styles.catalog_item_list}>
@@ -68,7 +49,6 @@ const CatalogItem = () => {
             <li key={booking._id} className={styles.catalog_item}>
               <div>
                 <p className={styles.catalog_item_title}>
-                  Service:{" "}
                   <span className={styles.catalog_item_title_span}>
                     {booking.serviceType}
                   </span>
@@ -77,7 +57,6 @@ const CatalogItem = () => {
                   .filter((item) => item.trim() !== "")
                   .map((item) => (
                     <p className={styles.catalog_item_title}>
-                      Dodatek:{" "}
                       <span className={styles.catalog_item_title_span}>
                         {item}
                       </span>
@@ -104,13 +83,13 @@ const CatalogItem = () => {
                 >
                   Delete
                 </button>
-                <button
+                <Link
                   className={styles.catalog_item_btn}
                   type="button"
-                  onClick={() => openModal(booking._id, booking.serviceType)}
+                  to={"/reservation"}
                 >
                   Update
-                </button>
+                </Link>
               </div>
             </li>
           ))
@@ -118,13 +97,6 @@ const CatalogItem = () => {
           <p>Loading or no bookings found.</p>
         )}
       </ul>
-      <UpdateMenu
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        customStyles={customStyles}
-        id={selectedBookingId}
-        type={selectType}
-      />
     </div>
   );
 };
