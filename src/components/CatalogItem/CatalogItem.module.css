@@ -23,11 +23,12 @@
 .catalog_item_btn {
   background-color: #808080;
   color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 8px;
 }
 
 .catalog_item_btn:hover {
   background-color: white;
-  border: 1px solid #808080;
   color: #808080;
 }
 

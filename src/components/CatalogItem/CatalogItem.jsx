@@ -80,6 +80,7 @@ const CatalogItem = () => {
                   className={styles.catalog_item_btn}
                   type="button"
                   onClick={() => handleDelet(booking._id)}
+                  id={booking._id}
                 >
                   Delete
                 </button>
