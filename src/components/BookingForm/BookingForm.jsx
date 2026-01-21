@@ -22,7 +22,8 @@ dayjs.extend(isoWeek);
 
 const BookingForm = () => {
   const location = useLocation();
-  const { price, type } = location.state || {};
+  const { price, id } = location.state || {};
+  console.log(id);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");

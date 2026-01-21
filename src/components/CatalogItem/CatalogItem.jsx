@@ -84,10 +84,12 @@ const CatalogItem = () => {
                 >
                   Delete
                 </button>
+
                 <Link
                   className={styles.catalog_item_btn}
                   type="button"
-                  to={"/reservation"}
+                  to="/reservation"
+                  state={{ id: booking }}
                 >
                   Update
                 </Link>

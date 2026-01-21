@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const authInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://nail-art-backend-0ip3.onrender.com",
   withCredentials: true,
 });
 
@@ -28,7 +28,7 @@ export const apiRegisterUser = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const apiLoginUser = createAsyncThunk(
@@ -44,7 +44,7 @@ export const apiLoginUser = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const apiGetCurrentUser = createAsyncThunk(
@@ -59,7 +59,7 @@ export const apiGetCurrentUser = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const apiGetCurrentUserInfo = createAsyncThunk(
@@ -72,7 +72,7 @@ export const apiGetCurrentUserInfo = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const apiLogoutUser = createAsyncThunk(
@@ -87,5 +87,5 @@ export const apiLogoutUser = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );
