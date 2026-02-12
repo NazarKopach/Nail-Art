@@ -30,7 +30,7 @@
 }
 
 .active_calendar_day {
-  background-color: #4f0e0e;
+  background-color: #6a6565;
   border-radius: 50%;
 }
 
@@ -38,7 +38,7 @@
   display: flex;
   gap: 10px;
   padding: 10px;
-  background-color: #808080;
+  margin: 10px;
 }
 
 .booking_time_btn {
@@ -47,15 +47,19 @@
 }
 
 .booking_time_btn:hover {
-  background-color: #ea6f6f;
+  background-color: #a49f9f;
   transform: scale3d(1.2, 1.2, 1);
 }
 
 .active_time_btn {
-  background-color: rgb(151, 9, 9);
+  background-color: rgb(71, 69, 69);
 }
 
 .booking_calendar_service_div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 5px;
 }
 
 .booking_calendar_service {
@@ -65,11 +69,9 @@
   gap: 10px;
   border: 1px solid transparent;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  background-color: white;
+  background-color: rgb(174, 172, 172);
   padding: 3px;
-  margin: 0;
+  margin: 10;
 }
 
 .booking_add_option {

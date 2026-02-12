@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 const CatalogItem = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(userBookings);
+  console.log(bookings);
 
   useEffect(() => {
     dispatch(fetchUserBookings());
@@ -46,8 +47,8 @@ const CatalogItem = () => {
       <ul className={styles.catalog_item_list}>
         {Array.isArray(bookings) && bookings.length > 0 ? (
           bookings.map((booking) => (
-            <li key={booking._id} className={styles.catalog_item}>
-              <div>
+            <li className={styles.catalog_item}>
+              <div key={booking._id}>
                 <p className={styles.catalog_item_title}>
                   <span className={styles.catalog_item_title_span}>
                     {booking.serviceType}

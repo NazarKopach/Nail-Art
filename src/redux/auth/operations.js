@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const authInstance = axios.create({
-  baseURL: "https://nail-art-backend-0ip3.onrender.com",
+  baseURL: "http://localhost:3000",
   withCredentials: true,
 });
 

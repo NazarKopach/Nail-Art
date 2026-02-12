@@ -1,6 +1,7 @@
 :root {
-  font-family: "Libertinus Sans", sans-serif, "Playwrite AU QLD", cursive,
-    system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family:
+    "Libertinus Sans", sans-serif, "Playwrite AU QLD", cursive, system-ui,
+    Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -50,7 +51,11 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #e14c4c;
+  background-color: #808080;
   cursor: pointer;
   transition: border-color 0.25s;
+}
+
+button:hover {
+  background-color: #aeaeae;
 }
