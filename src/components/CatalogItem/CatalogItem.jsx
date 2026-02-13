@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 const CatalogItem = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(userBookings);
-  console.log(bookings);
 
   useEffect(() => {
     dispatch(fetchUserBookings());
