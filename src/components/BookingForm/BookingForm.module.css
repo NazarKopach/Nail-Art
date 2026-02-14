@@ -51,6 +51,11 @@
   transform: scale3d(1.2, 1.2, 1);
 }
 
+.btn_booking_services {
+  background-color: transparent;
+  padding: 5px;
+}
+
 .active_time_btn {
   background-color: rgb(71, 69, 69);
 }

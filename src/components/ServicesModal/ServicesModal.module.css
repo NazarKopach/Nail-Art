@@ -1,0 +1,62 @@
+.dodatek_mobile_icon_div {
+  display: flex;
+  flex-direction: row-reverse;
+  cursor: pointer;
+}
+
+.dodatek_modal_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.dodatek_modal_price_div {
+  display: flex;
+
+  align-items: center;
+  gap: 5px;
+}
+
+.overlayBase {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(20, 20, 20, 0);
+  transition: background-color 300ms ease;
+  z-index: 1000;
+}
+.overlayAfterOpen {
+  background-color: rgba(20, 20, 20, 0.6);
+}
+.overlayBeforeClose {
+  background-color: rgba(20, 20, 20, 0);
+}
+
+.contentBase {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  width: 75%;
+  max-width: 500px;
+  background-color: #808080;
+  padding: 20px;
+  border-radius: 8px;
+  transition:
+    transform 300ms ease,
+    opacity 300ms ease;
+  opacity: 0;
+  z-index: 1001;
+  will-change: transform, opacity;
+}
+.contentAfterOpen {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+.contentBeforeClose {
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0;
+}

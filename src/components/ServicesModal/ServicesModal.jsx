@@ -1,20 +1,19 @@
 import ReactModal from "react-modal";
-import styles from "./DodatekModal.module.css";
 import { Icon } from "../Icon/Icon";
+import styles from "./ServicesModal.module.css";
+import { services } from "../../utils/const";
 import { useDispatch } from "react-redux";
-import { setReservationDodatek } from "../../redux/reservDodatek/slice";
-import { dodatekServices } from "../../utils/const";
+import { setReservation } from "../../redux/reserv/slice";
 
-const DodatekModal = ({ modalIsOpen, closeModal }) => {
+const ServiceModal = ({ modalIsOpen, closeModal }) => {
   const dispatch = useDispatch();
 
-  const handleSave = (idDodatek, servicesDodatek, priceDodatek, srcDodatek) => {
+  const handleSave = (services, price, src) => {
     dispatch(
-      setReservationDodatek({
-        idDodatek,
-        servicesDodatek,
-        priceDodatek,
-        srcDodatek,
+      setReservation({
+        services,
+        price,
+        src,
       }),
     );
     closeModal();
@@ -42,27 +41,17 @@ const DodatekModal = ({ modalIsOpen, closeModal }) => {
           <Icon id="icon-x" width="28" height="28" onClick={closeModal} />
         </div>
         <ul className={styles.dodatek_modal_list}>
-          {dodatekServices.map((service) => (
-            <li
-              className={styles.dodatek_modal_item}
-              key={service.dodatekServices}
-            >
+          {services.map((service) => (
+            <li key={service.src} className={styles.dodatek_modal_item}>
               <div className={styles.dodatek_modal_price_div}>
-                <img src={service.dodatekSrc} width="40" height="40" />
-                <p>{`${service.dodatekServices}
-                ${service.dodatekPrice} zl`}</p>
+                <img src={service.src} width="40" height="40" />
+                <p>{`${service.services} ${service.price} zl`}</p>
               </div>
-              <img src={service.src} width="40" />
               <div>
                 <button
                   className={styles.dodatek_modal_btn}
                   onClick={() =>
-                    handleSave(
-                      service.idDodatek,
-                      service.dodatekServices,
-                      service.dodatekPrice,
-                      service.dodatekSrc,
-                    )
+                    handleSave(service.services, service.price, service.src)
                   }
                 >
                   +
@@ -76,4 +65,4 @@ const DodatekModal = ({ modalIsOpen, closeModal }) => {
   );
 };
 
-export default DodatekModal;
+export default ServiceModal;
