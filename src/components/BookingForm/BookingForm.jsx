@@ -38,11 +38,10 @@ const BookingForm = () => {
   const startDay = startOfMonth.isoWeekday();
   const daysInMonth = endOfMonth.date();
 
-  const reservations = useSelector(reservedDate);
   const reserv = useSelector((state) => state.reservation);
+  const reservations = useSelector(reservedDate);
   const reservDodatek = useSelector((state) => state.reservationDodatek);
   const reservDodatekItem = reservDodatek.map((item) => item.servicesDodatek);
-
   const days = [];
   for (let i = 1; i < startDay; i++) days.push(null);
   for (let d = 1; d <= daysInMonth; d++) days.push(d);
@@ -51,16 +50,11 @@ const BookingForm = () => {
 
   useEffect(() => {
     dispatch(fetchReservedBookings());
+  }, [dispatch]);
+
+  useEffect(() => {
     setValue(Number(price) + (optionPrice ? Number(optionPrice) : 0));
   }, [dispatch, optionPrice, price]);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
 
   const handleSubmit = async () => {
     const data = {
@@ -68,6 +62,8 @@ const BookingForm = () => {
       dodatek: reservDodatekItem,
       time: time,
       date: date,
+      src: reserv.src,
+      price: reserv.price,
     };
     try {
       await dispatch(addBookings(data)).unwrap();
@@ -179,7 +175,8 @@ const BookingForm = () => {
               key={t}
               disabled={resTime.includes(t)} // блокуємо вже зайняті
               onClick={() => {
-                (setTime(t), setActiveTime(t));
+                setTime(t);
+                setActiveTime(t);
               }}
               className={`${styles.booking_time_btn} ${
                 activeTime === t ? styles.active_time_btn : ""

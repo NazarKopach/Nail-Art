@@ -18,11 +18,10 @@ import {
   clearAllReservationDodatek,
   clearReservationDodatek,
 } from "../../redux/reservDodatek/slice";
+import ServiceModal from "../ServicesModal/ServicesModal";
 dayjs.extend(isoWeek);
 
 const BookingUpdate = (id) => {
-  const reserv = id.id;
-  console.log(reserv);
   const location = useLocation();
   const { price } = location.state || {};
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -38,8 +37,8 @@ const BookingUpdate = (id) => {
   const startDay = startOfMonth.isoWeekday();
   const daysInMonth = endOfMonth.date();
 
+  const reserv = useSelector((state) => state.reservation);
   const reservations = useSelector(reservedDate);
-
   const reservDodatek = useSelector((state) => state.reservationDodatek);
   const reservDodatekItem = reservDodatek.map((item) => item.servicesDodatek);
 
@@ -54,20 +53,14 @@ const BookingUpdate = (id) => {
     setValue(Number(price) + (optionPrice ? Number(optionPrice) : 0));
   }, [dispatch, optionPrice, price]);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
   const handleSubmit = async () => {
     const data = {
       serviceType: reserv.services,
       dodatek: reservDodatekItem,
       time: time,
       date: date,
+      src: reserv.src,
+      price: reserv.price,
     };
     try {
       await dispatch(addBookings(data)).unwrap();
@@ -78,12 +71,6 @@ const BookingUpdate = (id) => {
       toast.error(err.message || "Something went wrong...");
     }
   };
-
-  // const resDates = reservations.map((item) => {
-  //   if (date.includes(item.date)) {
-  //     return item.date;
-  //   }
-  // });
 
   const resTime = reservations.map((item) => {
     if (date.includes(item.date)) {
@@ -112,17 +99,17 @@ const BookingUpdate = (id) => {
           <div key={d}>{d}</div>
         ))}
         {days.map((d, idx) => {
-          if (!d) return <div key={idx}></div>; // пропускаємо пусті клітинки
+          if (!d) return <div key={idx}></div>;
 
-          const dayDate = currentDate.date(d); // створюємо дату для цього дня
-          const isPast = dayDate.isBefore(dayjs(), "day"); // чи день вже минув
+          const dayDate = currentDate.date(d);
+          const isPast = dayDate.isBefore(dayjs(), "day");
 
           return (
             <div
               key={idx}
               className={`${styles.booking_calendar_day} 
         ${activeDate === d ? styles.active_calendar_day : ""} 
-        ${isPast ? styles.disabled_day : ""}`} // додаємо новий стиль
+        ${isPast ? styles.disabled_day : ""}`}
               onClick={() => {
                 if (!isPast) {
                   setDate(dayDate.format("YYYY-MM-DD"));
@@ -138,7 +125,13 @@ const BookingUpdate = (id) => {
       <div className={styles.booking_calendar_service_div}>
         <p className={styles.booking_calendar_service}>
           <img src={reserv.src} width="40" height="40" />{" "}
-          {`${reserv.serviceType} ${reserv.price} zl`}{" "}
+          {`${reserv.services} ${reserv.price} zl`}
+          <button
+            className={styles.btn_booking_services}
+            onClick={() => setIsOpen("services")}
+          >
+            ➡
+          </button>
         </p>
         {reservDodatek.map((dodatek) => (
           <p
@@ -159,7 +152,10 @@ const BookingUpdate = (id) => {
         ))}
       </div>
 
-      <button className={styles.booking_add_option} onClick={() => openModal()}>
+      <button
+        className={styles.booking_add_option}
+        onClick={() => setIsOpen("dodatek")}
+      >
         dodaj dodatek+
       </button>
       {date.length !== 0 && (
@@ -183,7 +179,14 @@ const BookingUpdate = (id) => {
       <button type="submit" onClick={() => handleSubmit()}>
         booking
       </button>
-      <DodatekModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+      <DodatekModal
+        modalIsOpen={modalIsOpen === "dodatek"}
+        closeModal={() => setIsOpen(false)}
+      />
+      <ServiceModal
+        modalIsOpen={modalIsOpen === "services"}
+        closeModal={() => setIsOpen(false)}
+      />
     </div>
   );
 };

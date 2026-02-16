@@ -33,4 +33,6 @@ export const addBookingSchema = Yup.object({
   dodatek: Yup.string(),
   time: Yup.string().required(),
   date: Yup.string().required(),
+  src: Yup.string(),
+  price: Yup.string(),
 });

@@ -4,11 +4,11 @@ import { useEffect, useLayoutEffect } from "react";
 import {
   deleteBooking,
   fetchUserBookings,
-  patchBooking,
 } from "../../redux/booking/operations";
 import styles from "./CatalogItem.module.css";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
+import { setReservation } from "../../redux/reserv/slice";
 
 const CatalogItem = () => {
   const dispatch = useDispatch();
@@ -18,13 +18,19 @@ const CatalogItem = () => {
     dispatch(fetchUserBookings());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(patchBooking());
-  }, [dispatch]);
-
   const handleDelet = async (id) => {
     await dispatch(deleteBooking(id)).unwrap();
     dispatch(fetchUserBookings());
+  };
+
+  const handleSave = (services, price, src) => {
+    dispatch(
+      setReservation({
+        services,
+        price,
+        src,
+      }),
+    );
   };
 
   useLayoutEffect(() => {
@@ -46,8 +52,8 @@ const CatalogItem = () => {
       <ul className={styles.catalog_item_list}>
         {Array.isArray(bookings) && bookings.length > 0 ? (
           bookings.map((booking) => (
-            <li className={styles.catalog_item}>
-              <div key={booking._id}>
+            <li key={booking._id} className={styles.catalog_item}>
+              <div>
                 <p className={styles.catalog_item_title}>
                   <span className={styles.catalog_item_title_span}>
                     {booking.serviceType}
@@ -88,6 +94,9 @@ const CatalogItem = () => {
                 <Link
                   className={styles.catalog_item_btn}
                   type="button"
+                  onClick={() => {
+                    handleSave(booking.serviceType, booking.price, booking.src);
+                  }}
                   to="/reservation"
                   state={{ id: booking }}
                 >
