@@ -30,7 +30,16 @@ export const LoginUserSchema = Yup.object({
 
 export const addBookingSchema = Yup.object({
   serviceType: Yup.string().required(),
-  dodatek: Yup.string(),
+  dodatek: Yup.array()
+    .of(
+      Yup.object({
+        idDodatek: Yup.number().required(),
+        serviceDodatok: Yup.string().required(),
+        priceDodatek: Yup.number().required(),
+        srcDodatek: Yup.string().required(),
+      }),
+    )
+    .default([]),
   time: Yup.string().required(),
   date: Yup.string().required(),
   src: Yup.string(),

@@ -42,6 +42,7 @@ const BookingForm = () => {
   const reservations = useSelector(reservedDate);
   const reservDodatek = useSelector((state) => state.reservationDodatek);
   const reservDodatekItem = reservDodatek.map((item) => item.servicesDodatek);
+  console.log(reservDodatek);
   const days = [];
   for (let i = 1; i < startDay; i++) days.push(null);
   for (let d = 1; d <= daysInMonth; d++) days.push(d);
@@ -59,7 +60,7 @@ const BookingForm = () => {
   const handleSubmit = async () => {
     const data = {
       serviceType: reserv.services,
-      dodatek: reservDodatekItem,
+      dodatek: reservDodatek,
       time: time,
       date: date,
       src: reserv.src,

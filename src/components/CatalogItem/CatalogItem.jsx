@@ -9,11 +9,12 @@ import styles from "./CatalogItem.module.css";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
 import { setReservation } from "../../redux/reserv/slice";
+import { setReservationDodatek } from "../../redux/reservDodatek/slice";
 
 const CatalogItem = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(userBookings);
-
+  console.log(bookings);
   useEffect(() => {
     dispatch(fetchUserBookings());
   }, [dispatch]);
@@ -23,12 +24,29 @@ const CatalogItem = () => {
     dispatch(fetchUserBookings());
   };
 
-  const handleSave = (services, price, src) => {
+  const handleSave = (
+    services,
+    price,
+    src,
+    idDodatek,
+    servicesDodatek,
+    priceDodatek,
+    srcDodatek = [],
+  ) => {
     dispatch(
       setReservation({
         services,
         price,
         src,
+      }),
+    );
+
+    dispatch(
+      setReservationDodatek({
+        idDodatek,
+        servicesDodatek,
+        priceDodatek,
+        srcDodatek,
       }),
     );
   };
@@ -56,18 +74,16 @@ const CatalogItem = () => {
               <div>
                 <p className={styles.catalog_item_title}>
                   <span className={styles.catalog_item_title_span}>
-                    {booking.serviceType}
+                    {booking.serviceType} {booking.price} zl
                   </span>
                 </p>
-                {booking.dodatek
-                  .filter((item) => item.trim() !== "")
-                  .map((item) => (
-                    <p className={styles.catalog_item_title}>
-                      <span className={styles.catalog_item_title_span}>
-                        {item}
-                      </span>
-                    </p>
-                  ))}
+                {booking.dodatek.map((item) => (
+                  <p className={styles.catalog_item_title}>
+                    <span className={styles.catalog_item_title_span}>
+                      {item.servicesDodatek} {item.priceDodatek} zl
+                    </span>
+                  </p>
+                ))}
                 <p className={styles.catalog_item_title}>
                   Data:{" "}
                   <span className={styles.catalog_item_title_span}>
@@ -95,7 +111,15 @@ const CatalogItem = () => {
                   className={styles.catalog_item_btn}
                   type="button"
                   onClick={() => {
-                    handleSave(booking.serviceType, booking.price, booking.src);
+                    handleSave(
+                      booking.serviceType,
+                      booking.price,
+                      booking.src,
+                      booking.idDodatek,
+                      booking.servicesDodatek,
+                      booking.priceDodatek,
+                      booking.srcDodatek,
+                    );
                   }}
                   to="/reservation"
                   state={{ id: booking }}
