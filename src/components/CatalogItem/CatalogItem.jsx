@@ -115,10 +115,10 @@ const CatalogItem = () => {
                       booking.serviceType,
                       booking.price,
                       booking.src,
-                      booking.idDodatek,
-                      booking.servicesDodatek,
-                      booking.priceDodatek,
-                      booking.srcDodatek,
+                      bookings.idDodatek,
+                      bookings.servicesDodatek,
+                      bookings.priceDodatek,
+                      bookings.srcDodatek,
                     );
                   }}
                   to="/reservation"
